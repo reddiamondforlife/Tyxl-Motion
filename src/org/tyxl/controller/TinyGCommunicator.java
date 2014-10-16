@@ -20,7 +20,7 @@
     You should have received a copy of the GNU General Public License
     along with UGS.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.tyxl.universalgcodesender;
+package org.tyxl.controller;
 
 import org.tyxl.types.TinyGGcodeCommand;
 import gnu.io.NoSuchPortException;

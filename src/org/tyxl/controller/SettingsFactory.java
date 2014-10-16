@@ -19,7 +19,7 @@
     Refactored by Bob Jones 2014
  */
 
-package org.tyxl.universalgcodesender;
+package org.tyxl.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

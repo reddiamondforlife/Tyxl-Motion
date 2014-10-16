@@ -23,8 +23,8 @@
 
 package org.tyxl.mockobjects;
 
-import org.tyxl.universalgcodesender.AbstractCommunicator;
-import org.tyxl.universalgcodesender.Connection;
+import org.tyxl.controller.AbstractCommunicator;
+import org.tyxl.controller.Connection;
 import gnu.io.NoSuchPortException;
 import gnu.io.PortInUseException;
 import gnu.io.UnsupportedCommOperationException;

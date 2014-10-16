@@ -1,6 +1,6 @@
-package org.tyxl.universalgcodesender;
+package org.tyxl.controller;
 
-import org.tyxl.pendantui.SystemStateBean;
+import org.tyxl.remote.SystemStateBean;
 
 public interface MainWindowAPI {
 

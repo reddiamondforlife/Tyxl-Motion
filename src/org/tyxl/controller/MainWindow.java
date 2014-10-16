@@ -23,19 +23,19 @@
     along with UGS.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.tyxl.universalgcodesender;
+package org.tyxl.controller;
 
 import org.tyxl.i18n.Localization;
 import org.tyxl.listeners.ControllerListener;
-import org.tyxl.pendantui.PendantUI;
-import org.tyxl.pendantui.SystemStateBean;
+import org.tyxl.remote.PendantUI;
+import org.tyxl.remote.SystemStateBean;
 import org.tyxl.types.GcodeCommand;
 import org.tyxl.uielements.ConnectionSettingsDialog;
 import org.tyxl.uielements.GcodeFileTypeFilter;
 import org.tyxl.uielements.GrblFirmwareSettingsDialog;
 import org.tyxl.uielements.StepSizeSpinnerModel;
 import org.tyxl.visualizer.VisualizerWindow;
-import org.tyxl.universalgcodesender.Version;
+import org.tyxl.controller.Version;
 import gnu.io.CommPortIdentifier;
 import gnu.io.PortInUseException;
 import java.awt.Color;
@@ -61,9 +61,12 @@ import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.text.DefaultCaret;
 import javax.vecmath.Point3d;
@@ -192,6 +195,8 @@ implements KeyListener, ControllerListener, MainWindowAPI {
         workPositionZValueLabel = new javax.swing.JLabel();
         latestCommentValueLabel = new javax.swing.JLabel();
         latestCommentLabel = new javax.swing.JLabel();
+        visualizePanel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         mainMenuBar = new javax.swing.JMenuBar();
         settingsMenu = new javax.swing.JMenu();
         grblConnectionSettingsMenuItem = new javax.swing.JMenuItem();
@@ -259,7 +264,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
                     .add(commandTextField)
                     .add(commandsPanelLayout.createSequentialGroup()
                         .add(commandLabel)
-                        .add(0, 595, Short.MAX_VALUE)))
+                        .add(0, 348, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         commandsPanelLayout.setVerticalGroup(
@@ -711,7 +716,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
                         .add(returnToZeroButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 159, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(resetYButton)))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED, 162, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(keyboardMovementPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1111,6 +1116,30 @@ implements KeyListener, ControllerListener, MainWindowAPI {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
+        visualizePanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        visualizePanel.setPreferredSize(new java.awt.Dimension(540, 540));
+
+        jLabel1.setText("No file has been loaded");
+
+        org.jdesktop.layout.GroupLayout visualizePanelLayout = new org.jdesktop.layout.GroupLayout(visualizePanel);
+        visualizePanel.setLayout(visualizePanelLayout);
+        visualizePanelLayout.setHorizontalGroup(
+            visualizePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, visualizePanelLayout.createSequentialGroup()
+                .addContainerGap(196, Short.MAX_VALUE)
+                .add(jLabel1)
+                .add(228, 228, 228))
+        );
+        visualizePanelLayout.setVerticalGroup(
+            visualizePanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(visualizePanelLayout.createSequentialGroup()
+                .add(261, 261, 261)
+                .add(jLabel1)
+                .addContainerGap(261, Short.MAX_VALUE))
+        );
+
+        jLabel1.getAccessibleContext().setAccessibleName("fsdhfakjsdfhak");
+
         settingsMenu.setText("Settings");
 
         grblConnectionSettingsMenuItem.setText("Sender Settings");
@@ -1163,36 +1192,44 @@ implements KeyListener, ControllerListener, MainWindowAPI {
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(connectionPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(statusPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
-                        .add(scrollWindowCheckBox)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(connectionPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(statusPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(showVerboseOutputCheckBox)
-                        .addContainerGap())
-                    .add(controlContextTabbedPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-            .add(bottomTabbedPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(layout.createSequentialGroup()
+                                .add(scrollWindowCheckBox)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(showVerboseOutputCheckBox))
+                            .add(controlContextTabbedPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 424, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(bottomTabbedPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 655, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(visualizePanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(visualizePanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(layout.createSequentialGroup()
-                        .add(controlContextTabbedPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 283, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(scrollWindowCheckBox)
-                            .add(showVerboseOutputCheckBox)))
-                    .add(layout.createSequentialGroup()
-                        .add(connectionPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 144, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(layout.createSequentialGroup()
+                                .add(controlContextTabbedPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 283, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(scrollWindowCheckBox)
+                                    .add(showVerboseOutputCheckBox)))
+                            .add(layout.createSequentialGroup()
+                                .add(connectionPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 144, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(statusPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(statusPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(bottomTabbedPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE))
+                        .add(bottomTabbedPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         pack();
@@ -1483,11 +1520,8 @@ implements KeyListener, ControllerListener, MainWindowAPI {
             try {
                 fileTextField.setText(fileChooser.getSelectedFile().getAbsolutePath());
                 gcodeFile = fileChooser.getSelectedFile();
-                loadFile(gcodeFile);
-                        
-                if (this.vw != null) {
-                    vw.setGcodeFile(gcodeFile.getAbsolutePath());
-                }
+                loadFile(gcodeFile);         
+                
             } catch (FileNotFoundException ex) {
                 MainWindow.displayErrorDialog(Localization.getString(
                         "mainWindow.error.openingFile") +": " + ex.getMessage());
@@ -1498,52 +1532,19 @@ implements KeyListener, ControllerListener, MainWindowAPI {
             }
         } else {
             // Canceled file open.
-        }
+        }  
+
     }//GEN-LAST:event_browseButtonActionPerformed
 
     private void visualizeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualizeButtonActionPerformed
         // Create new object if it is null.
-        if (this.vw == null) {
-            this.vw = new VisualizerWindow(settings.getVisualizerWindowSettings());
-            
-            final MainWindow mw = this;
-            vw.addComponentListener(new ComponentListener() {
-            @Override
-            public void componentResized(ComponentEvent ce) {
-                mw.settings.getVisualizerWindowSettings().height = ce.getComponent().getSize().height;
-                mw.settings.getVisualizerWindowSettings().width = ce.getComponent().getSize().width;
-            }
-
-            @Override
-            public void componentMoved(ComponentEvent ce) {
-                mw.settings.getVisualizerWindowSettings().xLocation = ce.getComponent().getLocation().x;
-                mw.settings.getVisualizerWindowSettings().yLocation = ce.getComponent().getLocation().y;
-            }
-
-            @Override
-            public void componentShown(ComponentEvent ce) {}
-            @Override
-            public void componentHidden(ComponentEvent ce) {}
-        });
-
-            vw.setMinArcLength(settings.getSmallArcThreshold());
-            vw.setArcLength(settings.getSmallArcSegmentLength());
+            this.vw=null;
+            this.vw = new VisualizerWindow();
             if (this.fileTextField.getText().length() > 1) {
                 vw.setGcodeFile(this.fileTextField.getText());
             }
-            // Add listener
-            if (this.controller != null) {
-                this.controller.addListener(vw);
-            }
-        }
-
-        // Display the form
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                vw.setVisible(true);
-            }
-        });
+           visualizePanel.add(vw);
+           vw.setVisible(true); 
     }//GEN-LAST:event_visualizeButtonActionPerformed
 
     @Override
@@ -1935,21 +1936,21 @@ implements KeyListener, ControllerListener, MainWindowAPI {
         mw.customGcodeText3.setText(mw.settings.getCustomGcode3());
         mw.customGcodeText4.setText(mw.settings.getCustomGcode4());
         mw.customGcodeText5.setText(mw.settings.getCustomGcode5());
-        mw.setSize(mw.settings.getMainWindowSettings().width, mw.settings.getMainWindowSettings().height);
-        mw.setLocation(mw.settings.getMainWindowSettings().xLocation, mw.settings.getMainWindowSettings().yLocation);
+       // mw.setSize(mw.settings.getMainWindowSettings().width, mw.settings.getMainWindowSettings().height);
+        //mw.setLocation(mw.settings.getMainWindowSettings().xLocation, mw.settings.getMainWindowSettings().yLocation);
 //        mw.setSize(java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().width, java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().width);
         
         mw.addComponentListener(new ComponentListener() {
             @Override
             public void componentResized(ComponentEvent ce) {
-                mw.settings.getMainWindowSettings().height = ce.getComponent().getSize().height;
-                mw.settings.getMainWindowSettings().width = ce.getComponent().getSize().width;
+          //      mw.settings.getMainWindowSettings().height = ce.getComponent().getSize().height;
+           //     mw.settings.getMainWindowSettings().width = ce.getComponent().getSize().width;
             }
 
             @Override
             public void componentMoved(ComponentEvent ce) {
-                mw.settings.getMainWindowSettings().xLocation = ce.getComponent().getLocation().x;
-                mw.settings.getMainWindowSettings().yLocation = ce.getComponent().getLocation().y;
+               // mw.settings.getMainWindowSettings().xLocation = ce.getComponent().getLocation().x;
+               // mw.settings.getMainWindowSettings().yLocation = ce.getComponent().getLocation().y;
             }
 
             @Override
@@ -2454,9 +2455,9 @@ implements KeyListener, ControllerListener, MainWindowAPI {
             updateControlsForState(ControlState.FILE_SELECTED);
         }
 
-        if (this.vw != null) {
-            vw.setGcodeFile(file.getAbsolutePath());
-        }
+        //if (this.vw != null) {
+        //    vw.setGcodeFile(file.getAbsolutePath());
+       // }
     }
 
     private void applySettingsToController(AbstractController controller) {
@@ -2797,6 +2798,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
     private javax.swing.JMenuItem grblConnectionSettingsMenuItem;
     private javax.swing.JMenuItem grblFirmwareSettingsMenuItem;
     private javax.swing.JButton helpButtonMachineControl;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -2852,6 +2854,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
     private javax.swing.JMenuItem stopPendantServerButton;
     private javax.swing.JButton toggleCheckMode;
     private javax.swing.JButton visualizeButton;
+    private javax.swing.JPanel visualizePanel;
     private javax.swing.JLabel workPositionLabel;
     private javax.swing.JLabel workPositionXLabel;
     private javax.swing.JLabel workPositionXValueLabel;

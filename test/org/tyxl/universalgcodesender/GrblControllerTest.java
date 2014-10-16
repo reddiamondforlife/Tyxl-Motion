@@ -18,8 +18,8 @@
  */
 package org.tyxl.universalgcodesender;
 
-import org.tyxl.universalgcodesender.GrblUtils;
-import org.tyxl.universalgcodesender.GrblController;
+import org.tyxl.controller.GrblUtils;
+import org.tyxl.controller.GrblController;
 import org.tyxl.listeners.ControllerListener;
 import org.tyxl.mockobjects.MockGrblCommunicator;
 import org.tyxl.types.GcodeCommand;

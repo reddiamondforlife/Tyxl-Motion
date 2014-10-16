@@ -18,8 +18,8 @@
  */
 package org.tyxl.universalgcodesender;
 
-import org.tyxl.universalgcodesender.GrblUtils;
-import org.tyxl.universalgcodesender.GrblUtils.Capabilities;
+import org.tyxl.controller.GrblUtils;
+import org.tyxl.controller.GrblUtils.Capabilities;
 import javax.vecmath.Point3d;
 import static org.junit.Assert.*;
 import org.junit.Test;

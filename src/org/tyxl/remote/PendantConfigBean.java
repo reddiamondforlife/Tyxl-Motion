@@ -1,4 +1,4 @@
-package org.tyxl.pendantui;
+package org.tyxl.remote;
 
 import java.util.ArrayList;
 import java.util.List;

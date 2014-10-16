@@ -1,7 +1,7 @@
 package org.tyxl.pendantui;
 
-import org.tyxl.pendantui.PendantUI;
-import org.tyxl.pendantui.SystemStateBean;
+import org.tyxl.remote.PendantUI;
+import org.tyxl.remote.SystemStateBean;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
@@ -18,11 +18,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.google.gson.Gson;
-import org.tyxl.universalgcodesender.AbstractController;
-import org.tyxl.universalgcodesender.MainWindow.ControlState;
-import org.tyxl.universalgcodesender.MainWindowAPI;
-import org.tyxl.universalgcodesender.Settings;
-import org.tyxl.pendantui.PendantConfigBean.StepSizeOption;
+import org.tyxl.controller.AbstractController;
+import org.tyxl.controller.MainWindow.ControlState;
+import org.tyxl.controller.MainWindowAPI;
+import org.tyxl.controller.Settings;
+import org.tyxl.remote.PendantConfigBean.StepSizeOption;
 
 public class PendantUITest {
 	private MockMainWindow mainWindow = new MockMainWindow();

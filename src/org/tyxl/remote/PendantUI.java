@@ -1,4 +1,4 @@
-package org.tyxl.pendantui;
+package org.tyxl.remote;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -29,7 +29,7 @@ import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.util.resource.Resource;
 
 import com.google.gson.Gson;
-import org.tyxl.universalgcodesender.MainWindowAPI;
+import org.tyxl.controller.MainWindowAPI;
 import org.tyxl.i18n.Localization;
 import org.tyxl.listeners.ControllerListener;
 import org.tyxl.types.GcodeCommand;
@@ -44,7 +44,7 @@ public class PendantUI implements ControllerListener{
     private static final Logger logger = Logger.getLogger(PendantUI.class.getName());
 	private MainWindowAPI mainWindow;
 	private Server server = null;
-	private int port = 8080;
+	private int port = 80;
 	private SystemStateBean systemState = new SystemStateBean();
 	
 	public PendantUI(MainWindowAPI mainWindow) {

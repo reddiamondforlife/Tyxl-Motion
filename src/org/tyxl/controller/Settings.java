@@ -1,7 +1,7 @@
-package org.tyxl.universalgcodesender;
+package org.tyxl.controller;
 
-import org.tyxl.pendantui.PendantConfigBean;
-import org.tyxl.types.WindowSettings;
+import org.tyxl.remote.PendantConfigBean;
+//import org.tyxl.types.WindowSettings;
 
 public class Settings {
     private String firmwareVersion = "GRBL";
@@ -13,8 +13,8 @@ public class Settings {
     private boolean scrollWindowEnabled = true;
     private boolean verboseOutputEnabled = false;
     // Sender Settings
-    private WindowSettings mainWindowSettings = new WindowSettings(0,0,640,520);
-    private WindowSettings visualizerWindowSettings = new WindowSettings(0,0,640,480);
+  //  private WindowSettings mainWindowSettings = new WindowSettings(0,0,640,520);
+   // private WindowSettings visualizerWindowSettings = new WindowSettings(0,0,640,480);
     private boolean overrideSpeedSelected = false;
     private double overrideSpeedValue = 60;
     private boolean singleStepMode = false;
@@ -103,21 +103,7 @@ public class Settings {
 		this.verboseOutputEnabled = verboseOutputEnabled;
 	}
 
-        public WindowSettings getMainWindowSettings() {
-            return this.mainWindowSettings;
-        }
-        
-        public void setMainWindowSettings(WindowSettings ws) {
-            this.mainWindowSettings = ws;
-        }
-
-        public WindowSettings getVisualizerWindowSettings() {
-            return this.visualizerWindowSettings;
-        }
-        
-        public void setVisualizerWindowSettings(WindowSettings vw) {
-            this.visualizerWindowSettings = vw;
-        }
+  
 
         public boolean isOverrideSpeedSelected() {
 		return overrideSpeedSelected;

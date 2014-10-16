@@ -21,7 +21,7 @@
  */
 package org.tyxl.uielements;
 
-import org.tyxl.universalgcodesender.GrblController;
+import org.tyxl.controller.GrblController;
 import org.tyxl.i18n.Localization;
 import org.tyxl.listeners.ControllerListener;
 import org.tyxl.types.GcodeCommand;

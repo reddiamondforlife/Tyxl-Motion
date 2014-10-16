@@ -18,13 +18,13 @@
  */
 package org.tyxl.universalgcodesender;
 
-import org.tyxl.universalgcodesender.CommUtils;
-import org.tyxl.universalgcodesender.GrblUtils;
-import org.tyxl.universalgcodesender.GrblCommunicator;
+import org.tyxl.controller.CommUtils;
+import org.tyxl.controller.GrblUtils;
+import org.tyxl.controller.GrblCommunicator;
 import org.tyxl.mockobjects.MockConnection;
 import org.tyxl.mockobjects.MockGrbl;
 import org.tyxl.types.GcodeCommand;
-import org.tyxl.universalgcodesender.AbstractCommunicator;
+import org.tyxl.controller.AbstractCommunicator;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.logging.Level;

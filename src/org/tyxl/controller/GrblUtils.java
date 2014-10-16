@@ -21,7 +21,7 @@
     along with UGS.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.tyxl.universalgcodesender;
+package org.tyxl.controller;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;

@@ -20,6 +20,7 @@
     You should have received a copy of the GNU General Public License
     along with UGS.  If not, see <http://www.gnu.org/licenses/>.
  */
+/**
 package org.tyxl.CLI;
 
 import org.tyxl.visualizer.VisualizerWindow;
@@ -28,6 +29,7 @@ import org.tyxl.visualizer.VisualizerWindow;
  *
  * @author wwinder
  */
+/**
 public class VisualizerCLI {
     public static void main(String args[]) {
         VisualizerWindow vw = new VisualizerWindow();
@@ -38,3 +40,4 @@ public class VisualizerCLI {
         vw.setVisible(true);
     }
 }
+*/

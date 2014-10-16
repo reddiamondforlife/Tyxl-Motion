@@ -26,27 +26,32 @@
 package org.tyxl.visualizer;
 
 import com.jogamp.opengl.util.FPSAnimator;
-import org.tyxl.i18n.Localization;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import javax.swing.JButton;
+//import org.tyxl.i18n.Localization;
 import org.tyxl.listeners.ControllerListener;
 import org.tyxl.types.GcodeCommand;
-import org.tyxl.types.WindowSettings;
-import java.awt.Dimension;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+//import org.tyxl.types.WindowSettings;
+//import java.awt.Dimension;
+//import java.awt.event.WindowAdapter;
+//import java.awt.event.WindowEvent;
+//import java.awt.event.WindowListener;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.vecmath.Point3d;
 
 /**
  *
  * @author wwinder
  */
-public class VisualizerWindow extends javax.swing.JFrame 
-implements ControllerListener, WindowListener {
+public class VisualizerWindow extends JPanel
+implements ControllerListener {
 
-    private static String TITLE = Localization.getString("visualizer.title");  // window's title
-    private static final int CANVAS_WIDTH = 640;  // width of the drawable
-    private static final int CANVAS_HEIGHT = 480; // height of the drawable
+  //  private static final int CANVAS_WIDTH = 640;  // width of the drawable
+  //  private static final int CANVAS_HEIGHT = 480; // height of the drawable
     private static final int FPS = 20; // animator's target frames per second
     
     // OpenGL Control
@@ -62,32 +67,13 @@ implements ControllerListener, WindowListener {
     /**
      * Creates new form Visualizer
      */
+  
     public VisualizerWindow() {
-        this(new WindowSettings(0,0,640,480));
-    }
-    
-    public VisualizerWindow(WindowSettings ws) {
-
-        this.setPreferredSize(new Dimension(ws.width, ws.height));
-        this.setLocation(ws.xLocation, ws.yLocation);
         // Create the OpenGL rendering canvas
         this.canvas = new VisualizerCanvas();
-        canvas.setPreferredSize(new Dimension(ws.width, ws.height));
-        canvas.setLocation(ws.xLocation, ws.yLocation);
-
-        // Create a animator that drives canvas' display() at the specified FPS.
         this.animator = new FPSAnimator(canvas, FPS, true);
-
-        // Create the top-level container
-        final JFrame frame = this; // Swing's JFrame or AWT's Frame
-        frame.getContentPane().add(canvas);
-        
-        // Manage pausing and resuming the animator when it doesn't need to run.
-        frame.addWindowListener(this);
-        
-        frame.setTitle(TITLE);
-        frame.pack();
-        frame.setVisible(true);
+        canvas.setBounds(20, 20, 500, 500);
+        add(canvas);  
         animator.start(); // start the animation loop
     }                                
 
@@ -162,49 +148,5 @@ implements ControllerListener, WindowListener {
     public void postProcessData(int numRows) {
         // Visualizer doesn't care.
     }
-    
-    // Window Listener Events.
 
-    @Override
-    public void windowClosing(WindowEvent e) {
-        // Use a dedicate thread to run the stop() to ensure that the
-        // animator stops before program exits.
-        new Thread() {
-            @Override
-            public void run() {
-                if (animator.isStarted()){ animator.pause(); }
-            }
-        }.start();
-    }
-
-    @Override
-    public void windowActivated(WindowEvent e) {
-        if (animator.isPaused()) { animator.resume(); }
-    }
-        
-
-    @Override
-    public void windowOpened(WindowEvent we) {
-        //throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void windowClosed(WindowEvent we) {
-        //throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void windowIconified(WindowEvent we) {
-        //throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void windowDeiconified(WindowEvent we) {
-        //throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void windowDeactivated(WindowEvent we) {
-        //throw new UnsupportedOperationException("Not supported yet.");
-    }
 }

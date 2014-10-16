@@ -1,4 +1,4 @@
-package org.tyxl.pendantui;
+package org.tyxl.remote;
 
 public class PendantURLBean {
 	private String urlString;

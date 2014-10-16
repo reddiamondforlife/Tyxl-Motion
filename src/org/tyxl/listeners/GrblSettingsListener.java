@@ -1,6 +1,6 @@
 package org.tyxl.listeners;
 
-import org.tyxl.universalgcodesender.AbstractController;
+import org.tyxl.controller.AbstractController;
 import org.tyxl.types.GcodeCommand;
 
 import javax.vecmath.Point3d;

@@ -4,12 +4,13 @@
  * and open the template in the editor.
  */
 
-package org.tyxl.types;
+//package org.tyxl.types;
 
 /**
  *
  * @author wwinder
  */
+/*
 public class WindowSettings {
     public int xLocation;
     public int yLocation;
@@ -23,3 +24,4 @@ public class WindowSettings {
         height = h;
     }
 }
+*/

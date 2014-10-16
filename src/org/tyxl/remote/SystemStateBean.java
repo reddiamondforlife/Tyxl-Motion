@@ -1,8 +1,8 @@
-package org.tyxl.pendantui;
+package org.tyxl.remote;
 
 import javax.vecmath.Point3d;
 
-import org.tyxl.universalgcodesender.MainWindow.ControlState;
+import org.tyxl.controller.MainWindow.ControlState;
 
 public class SystemStateBean {
 	private ControlState controlState = ControlState.COMM_DISCONNECTED;

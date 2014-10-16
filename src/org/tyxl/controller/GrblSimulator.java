@@ -1,4 +1,4 @@
-package org.tyxl.universalgcodesender;
+package org.tyxl.controller;
 
 import org.apache.commons.lang3.StringUtils;
 import org.tyxl.types.Simulator;

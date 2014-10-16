@@ -18,7 +18,7 @@
  */
 package org.tyxl.universalgcodesender;
 
-import org.tyxl.universalgcodesender.Utils;
+import org.tyxl.controller.Utils;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
