@@ -55,26 +55,26 @@
             </Menu>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="PendantMenu">
+        <Menu class="javax.swing.JMenu" name="RemoteMenu">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Pendant"/>
+            <Property name="text" type="java.lang.String" value="Remote"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="startPendantServerButton">
+            <MenuItem class="javax.swing.JMenuItem" name="startRemoteServerButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Start..."/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="startPendantServerButtonActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="startRemoteServerButtonActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="stopPendantServerButton">
+            <MenuItem class="javax.swing.JMenuItem" name="stopRemoteServerButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Stop..."/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="stopPendantServerButtonActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="stopRemoteServerButtonActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

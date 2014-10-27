@@ -9,7 +9,7 @@ import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
 public class Version {
-    private static String VERSION = "1.0.8 [nightly] ";
+    private static String VERSION = "1.0.9 TYXL edition [nighty] ";
     private static String TIMESTAMP = "";
 
     private static boolean initialized = false;

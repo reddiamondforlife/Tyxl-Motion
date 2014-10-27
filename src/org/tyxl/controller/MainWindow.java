@@ -35,11 +35,11 @@ import org.tyxl.uielements.GcodeFileTypeFilter;
 import org.tyxl.uielements.GrblFirmwareSettingsDialog;
 import org.tyxl.uielements.StepSizeSpinnerModel;
 import org.tyxl.visualizer.VisualizerWindow;
-import org.tyxl.controller.Version;
 import gnu.io.CommPortIdentifier;
 import gnu.io.PortInUseException;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.ActionEvent;
@@ -48,6 +48,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -57,16 +58,12 @@ import java.math.RoundingMode;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.text.DefaultCaret;
 import javax.vecmath.Point3d;
@@ -78,7 +75,7 @@ import javax.vecmath.Point3d;
 public class MainWindow extends javax.swing.JFrame 
 implements KeyListener, ControllerListener, MainWindowAPI {
     private static String VERSION = Version.getVersion() + " " + Version.getTimestamp();
-    private Remote pendantUI;
+    private Remote remote;
     private Settings settings;
     
     /** Creates new form MainWindow */
@@ -202,9 +199,9 @@ implements KeyListener, ControllerListener, MainWindowAPI {
         grblConnectionSettingsMenuItem = new javax.swing.JMenuItem();
         firmwareSettingsMenu = new javax.swing.JMenu();
         grblFirmwareSettingsMenuItem = new javax.swing.JMenuItem();
-        PendantMenu = new javax.swing.JMenu();
-        startPendantServerButton = new javax.swing.JMenuItem();
-        stopPendantServerButton = new javax.swing.JMenuItem();
+        RemoteMenu = new javax.swing.JMenu();
+        startRemoteServerButton = new javax.swing.JMenuItem();
+        stopRemoteServerButton = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -1164,26 +1161,26 @@ implements KeyListener, ControllerListener, MainWindowAPI {
 
         mainMenuBar.add(settingsMenu);
 
-        PendantMenu.setText("Pendant");
+        RemoteMenu.setText("Remote");
 
-        startPendantServerButton.setText("Start...");
-        startPendantServerButton.addActionListener(new java.awt.event.ActionListener() {
+        startRemoteServerButton.setText("Start...");
+        startRemoteServerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                startPendantServerButtonActionPerformed(evt);
+                startRemoteServerButtonActionPerformed(evt);
             }
         });
-        PendantMenu.add(startPendantServerButton);
+        RemoteMenu.add(startRemoteServerButton);
 
-        stopPendantServerButton.setText("Stop...");
-        stopPendantServerButton.setEnabled(false);
-        stopPendantServerButton.addActionListener(new java.awt.event.ActionListener() {
+        stopRemoteServerButton.setText("Stop...");
+        stopRemoteServerButton.setEnabled(false);
+        stopRemoteServerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                stopPendantServerButtonActionPerformed(evt);
+                stopRemoteServerButtonActionPerformed(evt);
             }
         });
-        PendantMenu.add(stopPendantServerButton);
+        RemoteMenu.add(stopRemoteServerButton);
 
-        mainMenuBar.add(PendantMenu);
+        mainMenuBar.add(RemoteMenu);
 
         setJMenuBar(mainMenuBar);
 
@@ -1324,8 +1321,8 @@ implements KeyListener, ControllerListener, MainWindowAPI {
                 vw.setMinArcLength(this.controller.getSmallArcThreshold());
                 vw.setArcLength(this.controller.getSmallArcSegmentLength());
             }
-            if (pendantUI != null) {
-                this.controller.addListener(pendantUI);
+            if (remote != null) {
+                this.controller.addListener(remote);
             }
             
             Boolean ret = openCommConnection();
@@ -1692,22 +1689,22 @@ implements KeyListener, ControllerListener, MainWindowAPI {
         }    
     }//GEN-LAST:event_saveButtonActionPerformed
 
-        private void startPendantServerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startPendantServerButtonActionPerformed
-	    this.pendantUI = new Remote(this);
-	    this.pendantUI.start();
-	    this.startPendantServerButton.setEnabled(false);
-	    this.stopPendantServerButton.setEnabled(true);
+        private void startRemoteServerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startRemoteServerButtonActionPerformed
+	    this.remote = new Remote(this);
+	    this.remote.start();
+	    this.startRemoteServerButton.setEnabled(false);
+	    this.stopRemoteServerButton.setEnabled(true);
             
             if (this.controller != null) {
-                this.controller.addListener(pendantUI);
+                this.controller.addListener(remote);
             }
-        }//GEN-LAST:event_startPendantServerButtonActionPerformed
+        }//GEN-LAST:event_startRemoteServerButtonActionPerformed
 
-        private void stopPendantServerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopPendantServerButtonActionPerformed
-	    this.pendantUI.stop();
-	    this.startPendantServerButton.setEnabled(true);
-	    this.stopPendantServerButton.setEnabled(false);
-        }//GEN-LAST:event_stopPendantServerButtonActionPerformed
+        private void stopRemoteServerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopRemoteServerButtonActionPerformed
+	    this.remote.stop();
+	    this.startRemoteServerButton.setEnabled(true);
+	    this.stopRemoteServerButton.setEnabled(false);
+        }//GEN-LAST:event_stopRemoteServerButtonActionPerformed
 
     private void customGcodeText1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customGcodeText1ActionPerformed
         this.settings.setCustomGcode1(this.customGcodeText1.getText());
@@ -1986,8 +1983,8 @@ implements KeyListener, ControllerListener, MainWindowAPI {
                 mw.settings.setFirmwareVersion(mw.firmwareComboBox.getSelectedItem().toString());
                 SettingsFactory.saveSettings(mw.settings);
                 
-                if(mw.pendantUI!=null){
-                	mw.pendantUI.stop();
+                if(mw.remote!=null){
+                	mw.remote.stop();
                 }
             }
         });
@@ -2016,14 +2013,16 @@ implements KeyListener, ControllerListener, MainWindowAPI {
         this.loadFirmwareSelector();
         this.setTitle(Localization.getString("title") + " (" 
                 + Localization.getString("version") + " " + VERSION + ")");
-        // starting pendant
-          this.pendantUI = new Remote(this);
-	    this.pendantUI.start();
-	    this.startPendantServerButton.setEnabled(false);
-	    this.stopPendantServerButton.setEnabled(true);
+        Image icon = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB_PRE);
+        this.setIconImage(icon);
+        // starting Remote
+          this.remote = new Remote(this);
+	    this.remote.start();
+	    this.startRemoteServerButton.setEnabled(false);
+	    this.stopRemoteServerButton.setEnabled(true);
             
             if (this.controller != null) {
-                this.controller.addListener(pendantUI);
+                this.controller.addListener(remote);
             }
         // Command History
         this.manualCommandHistory = new ArrayList<String>();
@@ -2767,7 +2766,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
 
     // Generated variables.
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu PendantMenu;
+    private javax.swing.JMenu RemoteMenu;
     private javax.swing.JLabel activeStateLabel;
     private javax.swing.JLabel activeStateValueLabel;
     private javax.swing.JCheckBox arrowMovementEnabled;
@@ -2855,11 +2854,11 @@ implements KeyListener, ControllerListener, MainWindowAPI {
     private javax.swing.JMenu settingsMenu;
     private javax.swing.JCheckBox showVerboseOutputCheckBox;
     private javax.swing.JButton softResetMachineControl;
-    private javax.swing.JMenuItem startPendantServerButton;
+    private javax.swing.JMenuItem startRemoteServerButton;
     private javax.swing.JPanel statusPanel;
     private javax.swing.JLabel stepSizeLabel;
     private javax.swing.JSpinner stepSizeSpinner;
-    private javax.swing.JMenuItem stopPendantServerButton;
+    private javax.swing.JMenuItem stopRemoteServerButton;
     private javax.swing.JButton toggleCheckMode;
     private javax.swing.JButton visualizeButton;
     private javax.swing.JPanel visualizePanel;
