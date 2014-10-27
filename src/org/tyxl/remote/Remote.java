@@ -40,20 +40,20 @@ import java.net.URL;
  * @author bobj
  *
  */
-public class PendantUI implements ControllerListener{
-    private static final Logger logger = Logger.getLogger(PendantUI.class.getName());
+public class Remote implements ControllerListener{
+    private static final Logger logger = Logger.getLogger(Remote.class.getName());
 	private MainWindowAPI mainWindow;
 	private Server server = null;
-	private int port = 80;
+	private int port = 8080;
 	private SystemStateBean systemState = new SystemStateBean();
 	
-	public PendantUI(MainWindowAPI mainWindow) {
+	public Remote(MainWindowAPI mainWindow) {
 		this.mainWindow = mainWindow;
 	}
 
 	public Resource getBaseResource(){
 		try {
-                        URL res = getClass().getResource("/resources/pendantUI");
+                        URL res = getClass().getResource("/resources/remote");
                         return Resource.newResource(res);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -65,7 +65,7 @@ public class PendantUI implements ControllerListener{
 	 * Launches the local web server.
 	 * @return the url for the pendant interface
 	 */
-	public List<PendantURLBean> start(){
+	public List<RemoteURLBean> start(){
             server = new Server(port);
 
             ResourceHandler resourceHandler = new ResourceHandler();
@@ -118,8 +118,8 @@ public class PendantUI implements ControllerListener{
 	 * 
 	 * @return
 	 */
-	public List<PendantURLBean> getUrlList(){
-		List<PendantURLBean> out = new ArrayList<>();
+	public List<RemoteURLBean> getUrlList(){
+		List<RemoteURLBean> out = new ArrayList<>();
 		
 		Enumeration<NetworkInterface> networkInterfaceEnum;
 		try {
@@ -140,7 +140,7 @@ public class PendantUI implements ControllerListener{
 	        		   !hostAddress.equals("127.0.0.1")){
 	        	   String url = "http://"+hostAddress+":"+port;
 	        	   ByteArrayOutputStream bout = QRCode.from(url).to(ImageType.PNG).stream();
-	        	   out.add(new PendantURLBean(url, bout.toByteArray()));
+	        	   out.add(new RemoteURLBean(url, bout.toByteArray()));
 	        	   System.out.println("Listening on: "+url);
 	           }
 	        }

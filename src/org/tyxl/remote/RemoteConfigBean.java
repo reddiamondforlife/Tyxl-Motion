@@ -3,7 +3,7 @@ package org.tyxl.remote;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PendantConfigBean {
+public class RemoteConfigBean {
 	private List<StepSizeOption> stepSizeList = new ArrayList<>();
 	private List<ShortCutButton> shortCutButtonList = new ArrayList<>();
 	
@@ -89,7 +89,7 @@ public class PendantConfigBean {
 		}
 
 	}
-	public PendantConfigBean() {
+	public RemoteConfigBean() {
 	}
 	public List<StepSizeOption> getStepSizeList() {
 		return stepSizeList;

@@ -1,8 +1,7 @@
 package org.tyxl.controller;
 
-import org.tyxl.remote.PendantConfigBean;
+import org.tyxl.remote.RemoteConfigBean;
 //import org.tyxl.types.WindowSettings;
-
 public class Settings {
     private String firmwareVersion = "GRBL";
     private String fileName = System.getProperty("user.home");
@@ -34,7 +33,7 @@ public class Settings {
     private String customGcode4 = "";
     private String customGcode5 = "";
     
-    private PendantConfigBean pendantConfig = new PendantConfigBean();
+    private RemoteConfigBean pendantConfig = new RemoteConfigBean();
 
 	public Settings() {
 	}
@@ -201,11 +200,11 @@ public class Settings {
 		this.smallArcSegmentLength = smallArcSegmentLength;
 	}
 
-	public PendantConfigBean getPendantConfig() {
+	public RemoteConfigBean getPendantConfig() {
 		return pendantConfig;
 	}
 
-	public void setPendantConfig(PendantConfigBean pendantConfig) {
+	public void setPendantConfig(RemoteConfigBean pendantConfig) {
 		this.pendantConfig = pendantConfig;
 	}
         

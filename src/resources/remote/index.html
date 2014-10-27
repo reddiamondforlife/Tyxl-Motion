@@ -4,7 +4,7 @@
 	<meta name="viewport" content="initial-scale=1, maximum-scale=5, user-scalable=yes" />
 	<meta charset="utf-8">
 	<title>Tyxl Remote</title>
-	<link href="css/smoothness/jquery-ui-1.10.4.custom.css" rel="stylesheet">
+	<link href="css/smoothnes/jquery-ui-1.10.4.custom.css" rel="stylesheet">
 	<script src="js/jquery-1.10.2.js"></script>
 	<script src="js/jquery-ui-1.10.4.custom.min.js"></script>
 	<script>
@@ -283,10 +283,13 @@
 		<li><a href="#Shortcuts">Shortcuts</a></li>
 	</ul>
 	<div id="MachineStatus">
-		<div><b>File:</b>&nbsp;&nbsp;<label id="fileName"></label></div>
+		<div><b>File:</b>&nbsp;&nbsp;<label id="fileName"></label> </div>
 		<div><b>Last Comment:</b>&nbsp;&nbsp;<label id="lastComment"></label></div>
 		<div><b>Active State:</b>&nbsp;&nbsp;<label id="activeState"></label></div>
 		<br />
+                <input type="file" id="files" name="file" />
+                <br />
+                
 		<table id="machineStatusTable">
 			<tr>
 				<th>Work Position:</th>
@@ -322,6 +325,7 @@
 		</table>		
 		<hr />
 		<br />
+              
 		<button class="button" id="sendFileButton" onclick="sendGcodeCommand('SEND_FILE');">Send</button>
 		<button class="button" id="pauseResumeButton" onclick="sendGcodeCommand('PAUSE_RESUME_FILE');">Pause</button>
 		<button class="button" id="cancelButton" onclick="sendGcodeCommand('CANCEL_FILE');">Cancel</button>

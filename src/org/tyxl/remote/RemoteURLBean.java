@@ -1,13 +1,13 @@
 package org.tyxl.remote;
 
-public class PendantURLBean {
+public class RemoteURLBean {
 	private String urlString;
 	private byte[] qrCodeJpg;
 	
-	public PendantURLBean() {
+	public RemoteURLBean() {
 	}
 
-	public PendantURLBean(String urlString, byte[] qrCodeJpg) {
+	public RemoteURLBean(String urlString, byte[] qrCodeJpg) {
 		super();
 		this.urlString = urlString;
 		this.qrCodeJpg = qrCodeJpg;

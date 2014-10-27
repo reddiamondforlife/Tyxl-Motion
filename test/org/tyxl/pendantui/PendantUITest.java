@@ -1,6 +1,6 @@
 package org.tyxl.pendantui;
 
-import org.tyxl.remote.PendantUI;
+import org.tyxl.remote.Remote;
 import org.tyxl.remote.SystemStateBean;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -22,11 +22,11 @@ import org.tyxl.controller.AbstractController;
 import org.tyxl.controller.MainWindow.ControlState;
 import org.tyxl.controller.MainWindowAPI;
 import org.tyxl.controller.Settings;
-import org.tyxl.remote.PendantConfigBean.StepSizeOption;
+import org.tyxl.remote.RemoteConfigBean.StepSizeOption;
 
 public class PendantUITest {
 	private MockMainWindow mainWindow = new MockMainWindow();
-	private PendantUI pendantUI = new PendantUI(mainWindow);
+	private Remote pendantUI = new Remote(mainWindow);
 	private MockUGSController controller = new MockUGSController();
 	private SystemStateBean systemState = new SystemStateBean();
 	

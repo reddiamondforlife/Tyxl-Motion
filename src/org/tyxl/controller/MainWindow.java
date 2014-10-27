@@ -27,7 +27,7 @@ package org.tyxl.controller;
 
 import org.tyxl.i18n.Localization;
 import org.tyxl.listeners.ControllerListener;
-import org.tyxl.remote.PendantUI;
+import org.tyxl.remote.Remote;
 import org.tyxl.remote.SystemStateBean;
 import org.tyxl.types.GcodeCommand;
 import org.tyxl.uielements.ConnectionSettingsDialog;
@@ -78,7 +78,7 @@ import javax.vecmath.Point3d;
 public class MainWindow extends javax.swing.JFrame 
 implements KeyListener, ControllerListener, MainWindowAPI {
     private static String VERSION = Version.getVersion() + " " + Version.getTimestamp();
-    private PendantUI pendantUI;
+    private Remote pendantUI;
     private Settings settings;
     
     /** Creates new form MainWindow */
@@ -1693,7 +1693,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
     }//GEN-LAST:event_saveButtonActionPerformed
 
         private void startPendantServerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startPendantServerButtonActionPerformed
-	    this.pendantUI = new PendantUI(this);
+	    this.pendantUI = new Remote(this);
 	    this.pendantUI.start();
 	    this.startPendantServerButton.setEnabled(false);
 	    this.stopPendantServerButton.setEnabled(true);
@@ -2016,7 +2016,15 @@ implements KeyListener, ControllerListener, MainWindowAPI {
         this.loadFirmwareSelector();
         this.setTitle(Localization.getString("title") + " (" 
                 + Localization.getString("version") + " " + VERSION + ")");
-        
+        // starting pendant
+          this.pendantUI = new Remote(this);
+	    this.pendantUI.start();
+	    this.startPendantServerButton.setEnabled(false);
+	    this.stopPendantServerButton.setEnabled(true);
+            
+            if (this.controller != null) {
+                this.controller.addListener(pendantUI);
+            }
         // Command History
         this.manualCommandHistory = new ArrayList<String>();
         this.commandTextField.addKeyListener(this);
