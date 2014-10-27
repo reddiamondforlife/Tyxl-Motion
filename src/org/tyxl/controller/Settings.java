@@ -33,7 +33,7 @@ public class Settings {
     private String customGcode4 = "";
     private String customGcode5 = "";
     
-    private RemoteConfigBean pendantConfig = new RemoteConfigBean();
+    private RemoteConfigBean remoteConfig = new RemoteConfigBean();
 
 	public Settings() {
 	}
@@ -200,12 +200,12 @@ public class Settings {
 		this.smallArcSegmentLength = smallArcSegmentLength;
 	}
 
-	public RemoteConfigBean getPendantConfig() {
-		return pendantConfig;
+	public RemoteConfigBean getRemoteConfig() {
+		return remoteConfig;
 	}
 
-	public void setPendantConfig(RemoteConfigBean pendantConfig) {
-		this.pendantConfig = pendantConfig;
+	public void setRemoteConfig(RemoteConfigBean remoteConfig) {
+		this.remoteConfig = remoteConfig;
 	}
         
         

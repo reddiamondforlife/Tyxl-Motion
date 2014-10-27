@@ -105,6 +105,6 @@ public class RemoteConfigBean {
 	}
 	@Override
 	public String toString() {
-		return "PendantConfigBean [stepSizeList=" + stepSizeList + ", shortCutButtonList=" + shortCutButtonList + "]";
+		return "RemoteConfigBean [stepSizeList=" + stepSizeList + ", shortCutButtonList=" + shortCutButtonList + "]";
 	}
 }

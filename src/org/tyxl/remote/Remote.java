@@ -29,22 +29,38 @@ import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.util.resource.Resource;
 
 import com.google.gson.Gson;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import org.tyxl.controller.MainWindowAPI;
 import org.tyxl.i18n.Localization;
 import org.tyxl.listeners.ControllerListener;
 import org.tyxl.types.GcodeCommand;
 import java.net.URL;
+import java.util.logging.Level;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.Part;
+import static jdk.nashorn.internal.objects.NativeError.getFileName;
 
 /**
  * This class will launch a local webserver which will provide a simple pendant interface
  * @author bobj
  *
  */
+            
+
 public class Remote implements ControllerListener{
+    
     private static final Logger logger = Logger.getLogger(Remote.class.getName());
 	private MainWindowAPI mainWindow;
 	private Server server = null;
-	private int port = 8080;
+	private int port = 8081;
 	private SystemStateBean systemState = new SystemStateBean();
 	
 	public Remote(MainWindowAPI mainWindow) {
@@ -99,8 +115,14 @@ public class Remote implements ControllerListener{
             configContext.setHandler(new ConfigHandler());
             configContext.setInitParameter("cacheControl", "max-age=0, public");
 
+            ContextHandler uploadContext = new ContextHandler();
+            configContext.setContextPath("/fileupload");
+            configContext.setBaseResource(getBaseResource());
+            configContext.setClassLoader(Thread.currentThread().getContextClassLoader());
+            configContext.setHandler(new UploadHandler());
+            
             HandlerList handlers = new HandlerList();
-            handlers.setHandlers(new Handler[] {configContext, sendGcodeContext, adjustManualLocationContext, getSystemStateContext, resourceHandler, new DefaultHandler()});
+            handlers.setHandlers(new Handler[] { configContext, sendGcodeContext, adjustManualLocationContext, getSystemStateContext, resourceHandler, new DefaultHandler()});
 
             server.setHandler(handlers);
 
@@ -214,16 +236,23 @@ public class Remote implements ControllerListener{
 	public String getSystemStateJson(){
 		return new Gson().toJson(systemState);
 	}
-	
-	
 	public class ConfigHandler extends AbstractHandler{
 		@Override
 		public void handle(String target,Request baseRequest,HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException {
 			baseRequest.setHandled(true);
 			response.setContentType("application/json");
-			response.getWriter().print(new Gson().toJson(mainWindow.getSettings().getPendantConfig()));
+			response.getWriter().print(new Gson().toJson(mainWindow.getSettings().getRemoteConfig()));
 		}
 	}
+        public class UploadHandler extends AbstractHandler{
+		@Override
+		public void handle(String target,Request baseRequest,HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException {
+			baseRequest.setHandled(true);
+			System.out.println(baseRequest.getParameter("file"));
+		}
+	}
+
+	
 
 	public class AdjustManualLocationHandler extends AbstractHandler{
 		@Override
