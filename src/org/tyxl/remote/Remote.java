@@ -53,21 +53,21 @@ import static jdk.nashorn.internal.objects.NativeError.getFileName;
  * @author bobj
  *
  */
-            
-
-public class Remote implements ControllerListener{
+      
+@MultipartConfig
+public class Remote implements ControllerListener {
     
     private static final Logger logger = Logger.getLogger(Remote.class.getName());
 	private MainWindowAPI mainWindow;
 	private Server server = null;
-	private int port = 8081;
+	private int port = 8082;
 	private SystemStateBean systemState = new SystemStateBean();
 	
 	public Remote(MainWindowAPI mainWindow) {
 		this.mainWindow = mainWindow;
 	}
 
-	public Resource getBaseResource(){
+public Resource getBaseResource(){
 		try {
                         URL res = getClass().getResource("/resources/remote");
                         return Resource.newResource(res);
@@ -115,14 +115,14 @@ public class Remote implements ControllerListener{
             configContext.setHandler(new ConfigHandler());
             configContext.setInitParameter("cacheControl", "max-age=0, public");
 
-            ContextHandler uploadContext = new ContextHandler();
-            configContext.setContextPath("/fileupload");
-            configContext.setBaseResource(getBaseResource());
-            configContext.setClassLoader(Thread.currentThread().getContextClassLoader());
-            configContext.setHandler(new UploadHandler());
+           ContextHandler uploadContext = new ContextHandler();
+            uploadContext.setContextPath("/upload");
+            uploadContext.setBaseResource(getBaseResource());
+            uploadContext.setClassLoader(Thread.currentThread().getContextClassLoader());
+            uploadContext.setHandler(new UploadHandler());
             
             HandlerList handlers = new HandlerList();
-            handlers.setHandlers(new Handler[] { configContext, sendGcodeContext, adjustManualLocationContext, getSystemStateContext, resourceHandler, new DefaultHandler()});
+            handlers.setHandlers(new Handler[] {uploadContext, configContext, sendGcodeContext, adjustManualLocationContext, getSystemStateContext, resourceHandler, new DefaultHandler()});
 
             server.setHandler(handlers);
 
@@ -247,10 +247,23 @@ public class Remote implements ControllerListener{
         public class UploadHandler extends AbstractHandler{
 		@Override
 		public void handle(String target,Request baseRequest,HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException {
-			baseRequest.setHandled(true);
-			System.out.println(baseRequest.getParameter("file"));
+			
+                       Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
+                       String filename = getFilename(filePart);
+                       System.out.println(filename);
+                       baseRequest.setHandled(true);
 		}
 	}
+
+        private static String getFilename(Part part) {
+    for (String cd : part.getHeader("content-disposition").split(";")) {
+        if (cd.trim().startsWith("filename")) {
+            String filename = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
+            return filename.substring(filename.lastIndexOf('/') + 1).substring(filename.lastIndexOf('\\') + 1); // MSIE fix.
+        }
+    }
+    return null;
+}
 
 	
 

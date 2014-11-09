@@ -82,6 +82,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
     public MainWindow() {
         initComponents();
         initProgram();
+        //initSerial();
     }
 
     /** This method is called from within the constructor to
@@ -1233,7 +1234,48 @@ implements KeyListener, ControllerListener, MainWindowAPI {
     }// </editor-fold>//GEN-END:initComponents
     /** End of generated code.
      */
-    
+    private void initSerial(){
+        if( this.opencloseButton.getText().equalsIgnoreCase("open") ) {
+            // Hook the view up to the model
+            String firmware = this.firmwareComboBox.getSelectedItem().toString();
+            this.controller = FirmwareUtils.getControllerFor(firmware);
+
+            applySettingsToController(this.controller);
+            
+            // Register comm listeners
+            this.controller.addListener(this);
+            if (vw != null) {
+                this.controller.addListener(vw);
+                vw.setMinArcLength(this.controller.getSmallArcThreshold());
+                vw.setArcLength(this.controller.getSmallArcSegmentLength());
+            }
+            if (remote != null) {
+                this.controller.addListener(remote);
+            }
+            
+            Boolean ret = openCommConnection();
+
+            if (ret) {
+                this.updateControlsForState(ControlState.COMM_IDLE);
+                if (this.gcodeFile != null) {
+                    try {
+                        loadFile(this.gcodeFile);
+                    } catch (FileNotFoundException ex) {
+                        MainWindow.displayErrorDialog(Localization.getString(
+                                "mainWindow.error.openingFile") +": " + ex.getMessage());
+                    } catch (IOException e) {
+                        MainWindow.displayErrorDialog(Localization.getString(
+                                "mainWindow.error.processingFile") +": " + e.getMessage());
+                    }
+                }
+                // Let the command field grab focus.
+                commandTextField.grabFocus();
+            }
+        } else {
+            this.closeCommConnection();
+            this.updateControlsForState(ControlState.COMM_DISCONNECTED);
+        }
+    }
     /** Generated callback functions, hand coded.
      */
     private void scrollWindowCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scrollWindowCheckBoxActionPerformed
@@ -1966,7 +2008,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
         });
         
         mw.initFileChooser();
-        
+        mw.initSerial();
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
             public void run() {
@@ -2099,6 +2141,8 @@ implements KeyListener, ControllerListener, MainWindowAPI {
                     return false;
                 }
             });
+        
+        
     }
 
     private double getStepSize() {
