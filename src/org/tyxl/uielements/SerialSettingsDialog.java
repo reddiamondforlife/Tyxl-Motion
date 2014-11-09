@@ -177,25 +177,31 @@ MainWindow mw;
         mw.openSerial();
         this.setVisible(false);
     }//GEN-LAST:event_saveButtonActionPerformed
-public String getFirmware(){
+public static String getFirmware(){
     return firmwareComboBox.getSelectedItem().toString();
 }
-public String getComPort(){
+public static String getComPort(){
    return commPortComboBox.getSelectedItem().toString();
 }
-public int getPortRate(){
+public static int getPortRate(){
     return Integer.parseInt(baudrateSelectionComboBox.getSelectedItem().toString());
 }
-    /**
-     * @param args the command line arguments
-     */
-   
+public static void setComPort(String comPort){
+    commPortComboBox.setSelectedItem(comPort);
+}
+public static void setPortRate(String portRate){
+    baudrateSelectionComboBox.setSelectedItem(portRate);
+}
+public static void setFirmware(String firmware){
+    firmwareComboBox.setSelectedItem(firmware);
+}
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox baudrateSelectionComboBox;
-    private javax.swing.JComboBox commPortComboBox;
+    private static javax.swing.JComboBox baudrateSelectionComboBox;
+    private static javax.swing.JComboBox commPortComboBox;
     private javax.swing.JPanel connection;
-    private javax.swing.JComboBox firmwareComboBox;
+    private static javax.swing.JComboBox firmwareComboBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel port;

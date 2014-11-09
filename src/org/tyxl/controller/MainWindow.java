@@ -164,15 +164,6 @@ implements KeyListener, ControllerListener, MainWindowAPI {
         customGcodeText4 = new javax.swing.JTextField();
         customGcodeText5 = new javax.swing.JTextField();
         macroInstructions = new javax.swing.JLabel();
-        connectionPanel = new javax.swing.JPanel();
-        commPortComboBox = new javax.swing.JComboBox();
-        baudrateSelectionComboBox = new javax.swing.JComboBox();
-        opencloseButton = new javax.swing.JButton();
-        refreshButton = new javax.swing.JButton();
-        baudLabel = new javax.swing.JLabel();
-        portLabel = new javax.swing.JLabel();
-        firmwareLabel = new javax.swing.JLabel();
-        firmwareComboBox = new javax.swing.JComboBox();
         showVerboseOutputCheckBox = new javax.swing.JCheckBox();
         statusPanel = new javax.swing.JPanel();
         activeStateLabel = new javax.swing.JLabel();
@@ -887,91 +878,6 @@ implements KeyListener, ControllerListener, MainWindowAPI {
 
         controlContextTabbedPane.addTab("Macros", macroPanel);
 
-        connectionPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Connection"));
-        connectionPanel.setMaximumSize(new java.awt.Dimension(247, 100));
-        connectionPanel.setMinimumSize(new java.awt.Dimension(247, 100));
-        connectionPanel.setName("Connection"); // NOI18N
-        connectionPanel.setPreferredSize(new java.awt.Dimension(247, 100));
-
-        commPortComboBox.setEditable(true);
-
-        baudrateSelectionComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2400", "4800", "9600", "19200", "38400", "57600", "115200" }));
-        baudrateSelectionComboBox.setSelectedIndex(6);
-        baudrateSelectionComboBox.setToolTipText("Select baudrate to use for the serial port.");
-        baudrateSelectionComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                baudrateSelectionComboBoxActionPerformed(evt);
-            }
-        });
-
-        opencloseButton.setText("Open");
-        opencloseButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opencloseButtonActionPerformed(evt);
-            }
-        });
-
-        refreshButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/refresh.gif"))); // NOI18N
-        refreshButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refreshButtonActionPerformed(evt);
-            }
-        });
-
-        baudLabel.setText("Baud:");
-
-        portLabel.setText("Port:");
-
-        firmwareLabel.setText("Firmware:");
-
-        firmwareComboBox.setEditable(true);
-
-        org.jdesktop.layout.GroupLayout connectionPanelLayout = new org.jdesktop.layout.GroupLayout(connectionPanel);
-        connectionPanel.setLayout(connectionPanelLayout);
-        connectionPanelLayout.setHorizontalGroup(
-            connectionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(connectionPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(connectionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, connectionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                        .add(connectionPanelLayout.createSequentialGroup()
-                            .add(portLabel)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                            .add(commPortComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 183, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .add(connectionPanelLayout.createSequentialGroup()
-                            .add(baudLabel)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                            .add(baudrateSelectionComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                            .add(refreshButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                            .add(opencloseButton)))
-                    .add(connectionPanelLayout.createSequentialGroup()
-                        .add(firmwareLabel)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(firmwareComboBox, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        connectionPanelLayout.setVerticalGroup(
-            connectionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(connectionPanelLayout.createSequentialGroup()
-                .add(connectionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(commPortComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(portLabel))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(connectionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(connectionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(baudLabel)
-                        .add(baudrateSelectionComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(refreshButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 24, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(opencloseButton))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(connectionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(firmwareLabel)
-                    .add(firmwareComboBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(45, Short.MAX_VALUE))
-        );
-
         showVerboseOutputCheckBox.setText("Show verbose output");
 
         statusPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Machine status"));
@@ -1069,7 +975,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
                                                 .add(machinePositionXLabel)
                                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                                 .add(machinePositionXValueLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 65, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))))
-                        .add(0, 0, Short.MAX_VALUE)))
+                        .add(0, 13, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         statusPanelLayout.setVerticalGroup(
@@ -1201,9 +1107,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
             .add(layout.createSequentialGroup()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                            .add(connectionPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(statusPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .add(statusPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(layout.createSequentialGroup()
@@ -1231,11 +1135,10 @@ implements KeyListener, ControllerListener, MainWindowAPI {
                                     .add(scrollWindowCheckBox)
                                     .add(showVerboseOutputCheckBox)))
                             .add(layout.createSequentialGroup()
-                                .add(connectionPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 144, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(150, 150, 150)
                                 .add(statusPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(bottomTabbedPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)))
+                        .add(bottomTabbedPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -1354,57 +1257,6 @@ implements KeyListener, ControllerListener, MainWindowAPI {
         // Or this one...
     }
     
-    private void opencloseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opencloseButtonActionPerformed
-        if( this.opencloseButton.getText().equalsIgnoreCase("open") ) {
-            // Hook the view up to the model
-            String firmware = this.firmwareComboBox.getSelectedItem().toString();
-            this.controller = FirmwareUtils.getControllerFor(firmware);
-
-            applySettingsToController(this.controller);
-            
-            // Register comm listeners
-            this.controller.addListener(this);
-            if (vw != null) {
-                this.controller.addListener(vw);
-                vw.setMinArcLength(this.controller.getSmallArcThreshold());
-                vw.setArcLength(this.controller.getSmallArcSegmentLength());
-            }
-            if (remote != null) {
-                this.controller.addListener(remote);
-            }
-            String port = commPortComboBox.getSelectedItem().toString();
-           int portRate = Integer.parseInt(baudrateSelectionComboBox.getSelectedItem().toString());
-            Boolean ret = openCommConnection(port, portRate);
-
-            if (ret) {
-                this.updateControlsForState(ControlState.COMM_IDLE);
-                if (this.gcodeFile != null) {
-                    try {
-                        loadFile(this.gcodeFile);
-                    } catch (FileNotFoundException ex) {
-                        MainWindow.displayErrorDialog(Localization.getString(
-                                "mainWindow.error.openingFile") +": " + ex.getMessage());
-                    } catch (IOException e) {
-                        MainWindow.displayErrorDialog(Localization.getString(
-                                "mainWindow.error.processingFile") +": " + e.getMessage());
-                    }
-                }
-                // Let the command field grab focus.
-                commandTextField.grabFocus();
-            }
-        } else {
-            this.closeCommConnection();
-            this.updateControlsForState(ControlState.COMM_DISCONNECTED);
-        }
-    }//GEN-LAST:event_opencloseButtonActionPerformed
-
-    private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
-        loadPortSelector();
-    }//GEN-LAST:event_refreshButtonActionPerformed
-
-    private void baudrateSelectionComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_baudrateSelectionComboBoxActionPerformed
-    }//GEN-LAST:event_baudrateSelectionComboBoxActionPerformed
-
 
     private void increaseStepActionPerformed(java.awt.event.ActionEvent evt) {                                             
         double stepSize = this.getStepSize();
@@ -1976,11 +1828,11 @@ implements KeyListener, ControllerListener, MainWindowAPI {
         mw.arrowMovementEnabled.setSelected(mw.settings.isManualModeEnabled());
         mw.stepSizeSpinner.setValue(mw.settings.getManualModeStepSize());
         mw.fileChooser = new JFileChooser(mw.settings.getFileName());
-        mw.commPortComboBox.setSelectedItem(mw.settings.getPort());
-        mw.baudrateSelectionComboBox.setSelectedItem(mw.settings.getPortRate());
+        SerialSettingsDialog.setComPort(mw.settings.getPort());
+        SerialSettingsDialog.setPortRate(mw.settings.getPortRate());
         mw.scrollWindowCheckBox.setSelected(mw.settings.isScrollWindowEnabled());
         mw.showVerboseOutputCheckBox.setSelected(mw.settings.isVerboseOutputEnabled());
-        mw.firmwareComboBox.setSelectedItem(mw.settings.getFirmwareVersion());
+        SerialSettingsDialog.setFirmware(mw.settings.getFirmwareVersion());
         mw.customGcodeText1.setText(mw.settings.getCustomGcode1());
         mw.customGcodeText2.setText(mw.settings.getCustomGcode2());
         mw.customGcodeText3.setText(mw.settings.getCustomGcode3());
@@ -2029,11 +1881,11 @@ implements KeyListener, ControllerListener, MainWindowAPI {
                 
                 mw.settings.setManualModeStepSize(mw.getStepSize());
                 mw.settings.setManualModeEnabled(mw.arrowMovementEnabled.isSelected());
-                mw.settings.setPort(mw.commPortComboBox.getSelectedItem().toString());
-                mw.settings.setPortRate(mw.baudrateSelectionComboBox.getSelectedItem().toString());
+                mw.settings.setPort(SerialSettingsDialog.getComPort());
+                mw.settings.setPortRate(Integer.toString(SerialSettingsDialog.getPortRate()));
                 mw.settings.setScrollWindowEnabled(mw.scrollWindowCheckBox.isSelected());
                 mw.settings.setVerboseOutputEnabled(mw.showVerboseOutputCheckBox.isSelected());
-                mw.settings.setFirmwareVersion(mw.firmwareComboBox.getSelectedItem().toString());
+                mw.settings.setFirmwareVersion(SerialSettingsDialog.getFirmware());
                 SettingsFactory.saveSettings(mw.settings);
                 
                 if(mw.remote!=null){
@@ -2062,9 +1914,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
     private void initProgram() {
         ssd.setVisible(false);
         this.setLocalLabels();
-        this.loadPortSelector();
         this.checkScrollWindow();
-        this.loadFirmwareSelector();
         this.setTitle(Localization.getString("title") + " (" 
                 + Localization.getString("version") + " " + VERSION + ")");
         Image icon = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB_PRE);
@@ -2305,16 +2155,10 @@ implements KeyListener, ControllerListener, MainWindowAPI {
      */
     private void updateConnectionControls(boolean isOpen) {
 
-        this.commPortComboBox.setEnabled(!isOpen);
-        this.baudrateSelectionComboBox.setEnabled(!isOpen);
-        this.refreshButton.setEnabled(!isOpen);
+ 
         this.commandTextField.setEnabled(isOpen);
 
-        if (isOpen) {
-            this.opencloseButton.setText(Localization.getString("close"));
-        } else {
-            this.opencloseButton.setText(Localization.getString("open"));
-        }
+        
     }
     
     /**
@@ -2411,19 +2255,16 @@ implements KeyListener, ControllerListener, MainWindowAPI {
      */
     private void setLocalLabels() {
         this.arrowMovementEnabled.setText(Localization.getString("mainWindow.swing.arrowMovementEnabled"));
-        this.baudLabel.setText(Localization.getString("mainWindow.swing.baudLabel"));
         this.browseButton.setText(Localization.getString("mainWindow.swing.browseButton"));
         this.cancelButton.setText(Localization.getString("mainWindow.swing.cancelButton"));
         this.commandLabel.setText(Localization.getString("mainWindow.swing.commandLabel"));
-        this.connectionPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(
-                Localization.getString("mainWindow.swing.connectionPanel")));
         this.controlContextTabbedPane.setTitleAt(0, Localization.getString("mainWindow.swing.controlContextTabbedPane.commands"));
         this.controlContextTabbedPane.setTitleAt(1, Localization.getString("mainWindow.swing.controlContextTabbedPane.fileMode"));
         this.controlContextTabbedPane.setTitleAt(2, Localization.getString("mainWindow.swing.controlContextTabbedPane.machineControl"));
         this.controlContextTabbedPane.setTitleAt(3, Localization.getString("mainWindow.swing.controlContextTabbedPane.macros"));
         this.durationLabel.setText(Localization.getString("mainWindow.swing.durationLabel"));
         this.fileLabel.setText(Localization.getString("mainWindow.swing.fileLabel"));
-        this.firmwareLabel.setText(Localization.getString("mainWindow.swing.firmwareLabel"));
+        
         this.firmwareSettingsMenu.setText(Localization.getString("mainWindow.swing.firmwareSettingsMenu"));
         this.grblConnectionSettingsMenuItem.setText(Localization.getString("mainWindow.swing.grblConnectionSettingsMenuItem"));
         this.grblFirmwareSettingsMenuItem.setText(Localization.getString("mainWindow.swing.grblFirmwareSettingsMenuItem"));
@@ -2435,9 +2276,9 @@ implements KeyListener, ControllerListener, MainWindowAPI {
         this.bottomTabbedPane.setTitleAt(1, Localization.getString("mainWindow.swing.bottomTabbedPane.table"));
         this.latestCommentLabel.setText(Localization.getString("mainWindow.swing.latestCommentLabel"));
         this.machinePosition.setText(Localization.getString("mainWindow.swing.machinePosition"));
-        this.opencloseButton.setText(Localization.getString("mainWindow.swing.opencloseButton"));
+  
         this.pauseButton.setText(Localization.getString("mainWindow.swing.pauseButton"));
-        this.portLabel.setText(Localization.getString("mainWindow.swing.portLabel"));
+        
         this.remainingRowsLabel.setText(Localization.getString("mainWindow.swing.remainingRowsLabel"));
         this.remainingTimeLabel.setText(Localization.getString("mainWindow.swing.remainingTimeLabel"));
         this.resetCoordinatesButton.setText(Localization.getString("mainWindow.swing.resetCoordinatesButton"));
@@ -2455,43 +2296,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
         this.macroInstructions.setText(Localization.getString("mainWindow.swing.macroInstructions")+"yep");
     }
     
-    // Scans for comm ports and puts them in the comm port combo box.
-    private void loadPortSelector() {
-        commPortComboBox.removeAllItems();
-        
-        List<CommPortIdentifier> portList = CommUtils.getSerialPortList();
 
-        if (portList.size() < 1) {
-            MainWindow.displayErrorDialog(Localization.getString("mainWindow.error.noSerialPort"));
-        } else {
-            // Sort?
-            //java.util.Collections.sort(portList);
-
-            java.util.Iterator<CommPortIdentifier> portIter = portList.iterator();
-
-            while ( portIter.hasNext() ) {
-                CommPortIdentifier portIdentifier = portIter.next();
-                commPortComboBox.addItem(portIdentifier.getName());
-            }
-
-            commPortComboBox.setSelectedIndex(0);
-        }
-    }
-    
-    private void loadFirmwareSelector() {
-        firmwareComboBox.removeAllItems();
-        List<String> firmwareList = FirmwareUtils.getFirmwareList();
-        
-        if (firmwareList.size() < 1) {
-            MainWindow.displayErrorDialog(Localization.getString("mainWindow.error.noFirmware"));
-        } else {
-            java.util.Iterator<String> iter = firmwareList.iterator();
-            while ( iter.hasNext() ) {
-                firmwareComboBox.addItem(iter.next());
-            }
-        }
-    }
-    
     private void loadFile(java.io.File file) throws FileNotFoundException, IOException {
         this.jobEstimate = 0L;
         this.gcodeFile = file;
@@ -2826,17 +2631,13 @@ implements KeyListener, ControllerListener, MainWindowAPI {
     private javax.swing.JLabel activeStateLabel;
     private javax.swing.JLabel activeStateValueLabel;
     private javax.swing.JCheckBox arrowMovementEnabled;
-    private javax.swing.JLabel baudLabel;
-    private javax.swing.JComboBox baudrateSelectionComboBox;
     private javax.swing.JTabbedPane bottomTabbedPane;
     private javax.swing.JButton browseButton;
     private javax.swing.JButton cancelButton;
-    private javax.swing.JComboBox commPortComboBox;
     private javax.swing.JLabel commandLabel;
     private org.tyxl.uielements.GcodeTable commandTable;
     private javax.swing.JTextField commandTextField;
     private javax.swing.JPanel commandsPanel;
-    private javax.swing.JPanel connectionPanel;
     private javax.swing.JTextArea consoleTextArea;
     private javax.swing.JTabbedPane controlContextTabbedPane;
     private javax.swing.JButton customGcodeButton1;
@@ -2855,8 +2656,6 @@ implements KeyListener, ControllerListener, MainWindowAPI {
     private javax.swing.JPanel fileModePanel;
     private javax.swing.JPanel fileRunPanel;
     private javax.swing.JTextField fileTextField;
-    private javax.swing.JComboBox firmwareComboBox;
-    private javax.swing.JLabel firmwareLabel;
     private javax.swing.JMenu firmwareSettingsMenu;
     private javax.swing.JMenuItem grblConnectionSettingsMenuItem;
     private javax.swing.JMenuItem grblFirmwareSettingsMenuItem;
@@ -2885,11 +2684,8 @@ implements KeyListener, ControllerListener, MainWindowAPI {
     private javax.swing.JPanel macroPanel;
     private javax.swing.JMenuBar mainMenuBar;
     private javax.swing.JPanel movementButtonPanel;
-    private javax.swing.JButton opencloseButton;
     private javax.swing.JButton pauseButton;
     private javax.swing.JButton performHomingCycleButton;
-    private javax.swing.JLabel portLabel;
-    private javax.swing.JButton refreshButton;
     private javax.swing.JLabel remainingRowsLabel;
     private javax.swing.JLabel remainingRowsValueLabel;
     private javax.swing.JLabel remainingTimeLabel;
