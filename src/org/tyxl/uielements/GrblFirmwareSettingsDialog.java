@@ -218,7 +218,7 @@ public class GrblFirmwareSettingsDialog extends javax.swing.JDialog implements C
     }
       
     private void initLocalization() {
-        closeButton.setText(Localization.getString("close"));
+       
         saveButton.setText(Localization.getString("save"));
         TableColumnModel tcm = settingsTable.getTableHeader().getColumnModel();
         tcm.getColumn(0).setHeaderValue(Localization.getString("setting"));
@@ -237,7 +237,6 @@ public class GrblFirmwareSettingsDialog extends javax.swing.JDialog implements C
     private void initComponents() {
 
         saveButton = new javax.swing.JButton();
-        closeButton = new javax.swing.JButton();
         settingsTableScrollPane = new javax.swing.JScrollPane();
         settingsTable = new javax.swing.JTable();
 
@@ -247,13 +246,6 @@ public class GrblFirmwareSettingsDialog extends javax.swing.JDialog implements C
         saveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveButtonActionPerformed(evt);
-            }
-        });
-
-        closeButton.setText("Close");
-        closeButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                closeButtonActionPerformed(evt);
             }
         });
 
@@ -285,45 +277,31 @@ public class GrblFirmwareSettingsDialog extends javax.swing.JDialog implements C
         if (settingsTable.getColumnModel().getColumnCount() > 0) {
             settingsTable.getColumnModel().getColumn(0).setMinWidth(50);
             settingsTable.getColumnModel().getColumn(0).setMaxWidth(50);
-            settingsTable.getColumnModel().getColumn(1).setPreferredWidth(85);
+            settingsTable.getColumnModel().getColumn(1).setMinWidth(60);
+            settingsTable.getColumnModel().getColumn(1).setMaxWidth(60);
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(settingsTableScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(saveButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(closeButton)
-                .addContainerGap())
-            .addComponent(settingsTableScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(settingsTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
+                .addComponent(settingsTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(saveButton)
-                    .addComponent(closeButton))
+                .addComponent(saveButton)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
-        if (this.savingSettings) {
-            JOptionPane.showMessageDialog(new JFrame(),
-                "Cannot close dialog until settings have finished being saved."
-                + "\nIf we got here by mistake open a bug report on github.",
-                "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            this.setVisible(false);
-        }
-    }//GEN-LAST:event_closeButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         this.settingsTable.editCellAt(-1, -1);
@@ -367,7 +345,6 @@ public class GrblFirmwareSettingsDialog extends javax.swing.JDialog implements C
     }//GEN-LAST:event_saveButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton closeButton;
     private javax.swing.JButton saveButton;
     private javax.swing.JTable settingsTable;
     private javax.swing.JScrollPane settingsTableScrollPane;

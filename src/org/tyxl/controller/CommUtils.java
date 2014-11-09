@@ -38,7 +38,7 @@ public class CommUtils {
     /** 
      * Generates a list of available serial ports.
      */
-    static protected java.util.List<CommPortIdentifier> getSerialPortList() {
+    public static java.util.List<CommPortIdentifier> getSerialPortList() {
         int type = CommPortIdentifier.PORT_SERIAL;
         
         java.util.Enumeration<CommPortIdentifier> portEnum = 

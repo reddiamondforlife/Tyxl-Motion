@@ -53,6 +53,14 @@
                 </MenuItem>
               </SubComponents>
             </Menu>
+            <MenuItem class="javax.swing.JMenuItem" name="serialSetting">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Serial Settings"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="serialSettingActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="RemoteMenu">
@@ -1245,7 +1253,7 @@
                 <StringItem index="6" value="115200"/>
               </StringArray>
             </Property>
-            <Property name="selectedIndex" type="int" value="2"/>
+            <Property name="selectedIndex" type="int" value="6"/>
             <Property name="toolTipText" type="java.lang.String" value="Select baudrate to use for the serial port."/>
           </Properties>
           <Events>

@@ -67,6 +67,7 @@ import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.text.DefaultCaret;
 import javax.vecmath.Point3d;
+import org.tyxl.uielements.SerialSettingsDialog;
 
 /**
  *
@@ -82,7 +83,6 @@ implements KeyListener, ControllerListener, MainWindowAPI {
     public MainWindow() {
         initComponents();
         initProgram();
-        //initSerial();
     }
 
     /** This method is called from within the constructor to
@@ -200,6 +200,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
         grblConnectionSettingsMenuItem = new javax.swing.JMenuItem();
         firmwareSettingsMenu = new javax.swing.JMenu();
         grblFirmwareSettingsMenuItem = new javax.swing.JMenuItem();
+        serialSetting = new javax.swing.JMenuItem();
         RemoteMenu = new javax.swing.JMenu();
         startRemoteServerButton = new javax.swing.JMenuItem();
         stopRemoteServerButton = new javax.swing.JMenuItem();
@@ -895,7 +896,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
         commPortComboBox.setEditable(true);
 
         baudrateSelectionComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2400", "4800", "9600", "19200", "38400", "57600", "115200" }));
-        baudrateSelectionComboBox.setSelectedIndex(2);
+        baudrateSelectionComboBox.setSelectedIndex(6);
         baudrateSelectionComboBox.setToolTipText("Select baudrate to use for the serial port.");
         baudrateSelectionComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1160,6 +1161,14 @@ implements KeyListener, ControllerListener, MainWindowAPI {
 
         settingsMenu.add(firmwareSettingsMenu);
 
+        serialSetting.setText("Serial Settings");
+        serialSetting.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                serialSettingActionPerformed(evt);
+            }
+        });
+        settingsMenu.add(serialSetting);
+
         mainMenuBar.add(settingsMenu);
 
         RemoteMenu.setText("Remote");
@@ -1234,10 +1243,9 @@ implements KeyListener, ControllerListener, MainWindowAPI {
     }// </editor-fold>//GEN-END:initComponents
     /** End of generated code.
      */
-    private void initSerial(){
-        if( this.opencloseButton.getText().equalsIgnoreCase("open") ) {
-            // Hook the view up to the model
-            String firmware = this.firmwareComboBox.getSelectedItem().toString();
+    public void openSerial(){
+             // Hook the view up to the model
+            String firmware = ssd.getFirmware();
             this.controller = FirmwareUtils.getControllerFor(firmware);
 
             applySettingsToController(this.controller);
@@ -1252,8 +1260,9 @@ implements KeyListener, ControllerListener, MainWindowAPI {
             if (remote != null) {
                 this.controller.addListener(remote);
             }
-            
-            Boolean ret = openCommConnection();
+           String port = ssd.getComPort();
+           int portRate = ssd.getPortRate();
+            Boolean ret = openCommConnection(port, portRate);
 
             if (ret) {
                 this.updateControlsForState(ControlState.COMM_IDLE);
@@ -1271,10 +1280,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
                 // Let the command field grab focus.
                 commandTextField.grabFocus();
             }
-        } else {
-            this.closeCommConnection();
-            this.updateControlsForState(ControlState.COMM_DISCONNECTED);
-        }
+      
     }
     /** Generated callback functions, hand coded.
      */
@@ -1366,8 +1372,9 @@ implements KeyListener, ControllerListener, MainWindowAPI {
             if (remote != null) {
                 this.controller.addListener(remote);
             }
-            
-            Boolean ret = openCommConnection();
+            String port = commPortComboBox.getSelectedItem().toString();
+           int portRate = Integer.parseInt(baudrateSelectionComboBox.getSelectedItem().toString());
+            Boolean ret = openCommConnection(port, portRate);
 
             if (ret) {
                 this.updateControlsForState(ControlState.COMM_IDLE);
@@ -1902,6 +1909,10 @@ implements KeyListener, ControllerListener, MainWindowAPI {
         this.settings.setCustomGcode5(this.customGcodeText5.getText());
     }//GEN-LAST:event_customGcodeText5ActionPerformed
 
+    private void serialSettingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_serialSettingActionPerformed
+     ssd.setVisible(true);
+    }//GEN-LAST:event_serialSettingActionPerformed
+
     private void executeCustomGcode(String str)
     {
         str = str.replaceAll("(\\r\\n|\\n\\r|\\r|\\n)", "");
@@ -2008,7 +2019,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
         });
         
         mw.initFileChooser();
-        mw.initSerial();
+        mw.openSerial();
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
             public void run() {
@@ -2049,6 +2060,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
     }
         
     private void initProgram() {
+        ssd.setVisible(false);
         this.setLocalLabels();
         this.loadPortSelector();
         this.checkScrollWindow();
@@ -2237,7 +2249,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
     
     private ControlState lastControlState = ControlState.COMM_DISCONNECTED;
     
-    private void updateControlsForState(ControlState state) {
+    public void updateControlsForState(ControlState state) {
         
         switch (state) {
             case FILE_SELECTED:
@@ -2577,15 +2589,15 @@ implements KeyListener, ControllerListener, MainWindowAPI {
         */
     }
 
-    private boolean openCommConnection() {
+    private boolean openCommConnection(String port, int portRate) {
         boolean connected = false;
         try {
             this.clearTable();
             this.sentRowsValueLabel.setText("0");
             this.sentRows = 0;
 
-            String port = commPortComboBox.getSelectedItem().toString();
-            int portRate = Integer.parseInt(baudrateSelectionComboBox.getSelectedItem().toString());
+           // String port = commPortComboBox.getSelectedItem().toString();
+           // int portRate = Integer.parseInt(baudrateSelectionComboBox.getSelectedItem().toString());
              
             connected = controller.openCommPort(port, portRate);
 
@@ -2613,7 +2625,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
         return connected;
     }
     
-    private void closeCommConnection() {
+    public void closeCommConnection() {
         this.controller.closeCommPort();
         this.controller = null;
     }
@@ -2622,7 +2634,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
         this.commandTable.clear();
     }
         
-    private static void displayErrorDialog(String errorMessage) {
+    public static void displayErrorDialog(String errorMessage) {
         JOptionPane.showMessageDialog(new JFrame(), errorMessage, 
                 Localization.getString("error"), JOptionPane.ERROR_MESSAGE);
     }
@@ -2793,7 +2805,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
 
     // Other windows
     VisualizerWindow vw = null;
-    
+    SerialSettingsDialog ssd= new SerialSettingsDialog(this,true,this);
     // Duration timer
     private Timer timer;
 
@@ -2895,6 +2907,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
     private javax.swing.JButton sendButton;
     private javax.swing.JLabel sentRowsLabel;
     private javax.swing.JLabel sentRowsValueLabel;
+    private javax.swing.JMenuItem serialSetting;
     private javax.swing.JMenu settingsMenu;
     private javax.swing.JCheckBox showVerboseOutputCheckBox;
     private javax.swing.JButton softResetMachineControl;
