@@ -1,6 +1,5 @@
 package org.tyxl.remote;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -14,10 +13,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.vecmath.Point3d;
-
-import net.glxn.qrgen.QRCode;
-import net.glxn.qrgen.image.ImageType;
-
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
@@ -30,23 +25,13 @@ import org.eclipse.jetty.util.resource.Resource;
 
 import com.google.gson.Gson;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import org.tyxl.controller.MainWindowAPI;
 import org.tyxl.i18n.Localization;
 import org.tyxl.listeners.ControllerListener;
 import org.tyxl.types.GcodeCommand;
 import java.net.URL;
-import java.util.logging.Level;
 import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.Part;
-import static jdk.nashorn.internal.objects.NativeError.getFileName;
 
 /**
  * This class will launch a local webserver which will provide a simple pendant interface
@@ -161,8 +146,6 @@ public Resource getBaseResource(){
 	           if(!hostAddress.contains(":") && 
 	        		   !hostAddress.equals("127.0.0.1")){
 	        	   String url = "http://"+hostAddress+":"+port;
-	        	   ByteArrayOutputStream bout = QRCode.from(url).to(ImageType.PNG).stream();
-	        	   out.add(new RemoteURLBean(url, bout.toByteArray()));
 	        	   System.out.println("Listening on: "+url);
 	           }
 	        }

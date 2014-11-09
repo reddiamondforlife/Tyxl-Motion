@@ -26,20 +26,8 @@
 package org.tyxl.visualizer;
 
 import com.jogamp.opengl.util.FPSAnimator;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import javax.swing.JButton;
-//import org.tyxl.i18n.Localization;
 import org.tyxl.listeners.ControllerListener;
 import org.tyxl.types.GcodeCommand;
-//import org.tyxl.types.WindowSettings;
-//import java.awt.Dimension;
-//import java.awt.event.WindowAdapter;
-//import java.awt.event.WindowEvent;
-//import java.awt.event.WindowListener;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.vecmath.Point3d;
 

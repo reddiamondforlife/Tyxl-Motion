@@ -26,7 +26,6 @@
 package org.tyxl.visualizer;
 
 import com.jogamp.common.nio.Buffers;
-import com.jogamp.opengl.util.FPSAnimator;
 import org.tyxl.uielements.FPSCounter;
 import java.awt.Font;
 import java.awt.Point;
