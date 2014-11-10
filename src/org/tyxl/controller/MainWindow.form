@@ -25,6 +25,11 @@
     </Component>
     <Menu class="javax.swing.JMenuBar" name="mainMenuBar">
       <SubComponents>
+        <Menu class="javax.swing.JMenu" name="file">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="File"/>
+          </Properties>
+        </Menu>
         <Menu class="javax.swing.JMenu" name="settingsMenu">
           <Properties>
             <Property name="text" type="java.lang.String" value="Settings"/>
@@ -53,6 +58,30 @@
                 </MenuItem>
               </SubComponents>
             </Menu>
+            <Menu class="javax.swing.JMenu" name="RemoteMenu">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Remote"/>
+              </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="startRemoteServerButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Start..."/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="startRemoteServerButtonActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="stopRemoteServerButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Stop..."/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="stopRemoteServerButtonActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
             <MenuItem class="javax.swing.JMenuItem" name="serialSetting">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Serial Settings"/>
@@ -63,27 +92,23 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="RemoteMenu">
+        <Menu class="javax.swing.JMenu" name="machine">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Remote"/>
+            <Property name="text" type="java.lang.String" value="Machine"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="startRemoteServerButton">
+            <MenuItem class="javax.swing.JMenuItem" name="control">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Start..."/>
+                <Property name="text" type="java.lang.String" value="Control"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="startRemoteServerButtonActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="controlActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="stopRemoteServerButton">
+            <MenuItem class="javax.swing.JMenuItem" name="macros">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Stop..."/>
-                <Property name="enabled" type="boolean" value="false"/>
+                <Property name="text" type="java.lang.String" value="Macros"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="stopRemoteServerButtonActionPerformed"/>
-              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -786,6 +811,9 @@
                     <Property name="text" type="java.lang.String" value="Enable Keyboard Movement"/>
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="arrowMovementEnabledActionPerformed"/>
+                  </Events>
                 </Component>
                 <Container class="javax.swing.JPanel" name="movementButtonPanel">
 
@@ -814,7 +842,7 @@
                           <Group type="103" groupAlignment="2" attributes="0">
                               <Component id="xMinusButton" alignment="2" min="-2" pref="45" max="-2" attributes="0"/>
                               <Component id="xPlusButton" alignment="2" min="-2" pref="45" max="-2" attributes="0"/>
-                              <Group type="102" alignment="2" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
                                   <Component id="yPlusButton" min="-2" pref="45" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="yMinusButton" min="-2" pref="45" max="-2" attributes="0"/>

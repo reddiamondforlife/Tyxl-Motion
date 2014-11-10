@@ -67,6 +67,7 @@ import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.text.DefaultCaret;
 import javax.vecmath.Point3d;
+import org.tyxl.uielements.MachineControlDialog;
 import org.tyxl.uielements.SerialSettingsDialog;
 
 /**
@@ -187,14 +188,18 @@ implements KeyListener, ControllerListener, MainWindowAPI {
         visualizePanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         mainMenuBar = new javax.swing.JMenuBar();
+        file = new javax.swing.JMenu();
         settingsMenu = new javax.swing.JMenu();
         grblConnectionSettingsMenuItem = new javax.swing.JMenuItem();
         firmwareSettingsMenu = new javax.swing.JMenu();
         grblFirmwareSettingsMenuItem = new javax.swing.JMenuItem();
-        serialSetting = new javax.swing.JMenuItem();
         RemoteMenu = new javax.swing.JMenu();
         startRemoteServerButton = new javax.swing.JMenuItem();
         stopRemoteServerButton = new javax.swing.JMenuItem();
+        serialSetting = new javax.swing.JMenuItem();
+        machine = new javax.swing.JMenu();
+        control = new javax.swing.JMenuItem();
+        macros = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -494,6 +499,11 @@ implements KeyListener, ControllerListener, MainWindowAPI {
 
         arrowMovementEnabled.setText("Enable Keyboard Movement");
         arrowMovementEnabled.setEnabled(false);
+        arrowMovementEnabled.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                arrowMovementEnabledActionPerformed(evt);
+            }
+        });
 
         zMinusButton.setText("Z-");
         zMinusButton.setEnabled(false);
@@ -565,7 +575,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
             .add(movementButtonPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.CENTER)
                 .add(xMinusButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 45, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(xPlusButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 45, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(movementButtonPanelLayout.createSequentialGroup()
+                .add(org.jdesktop.layout.GroupLayout.LEADING, movementButtonPanelLayout.createSequentialGroup()
                     .add(yPlusButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 45, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                     .add(yMinusButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 45, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -1045,6 +1055,9 @@ implements KeyListener, ControllerListener, MainWindowAPI {
 
         jLabel1.getAccessibleContext().setAccessibleName("fsdhfakjsdfhak");
 
+        file.setText("File");
+        mainMenuBar.add(file);
+
         settingsMenu.setText("Settings");
 
         grblConnectionSettingsMenuItem.setText("Sender Settings");
@@ -1067,16 +1080,6 @@ implements KeyListener, ControllerListener, MainWindowAPI {
 
         settingsMenu.add(firmwareSettingsMenu);
 
-        serialSetting.setText("Serial Settings");
-        serialSetting.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                serialSettingActionPerformed(evt);
-            }
-        });
-        settingsMenu.add(serialSetting);
-
-        mainMenuBar.add(settingsMenu);
-
         RemoteMenu.setText("Remote");
 
         startRemoteServerButton.setText("Start...");
@@ -1096,7 +1099,32 @@ implements KeyListener, ControllerListener, MainWindowAPI {
         });
         RemoteMenu.add(stopRemoteServerButton);
 
-        mainMenuBar.add(RemoteMenu);
+        settingsMenu.add(RemoteMenu);
+
+        serialSetting.setText("Serial Settings");
+        serialSetting.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                serialSettingActionPerformed(evt);
+            }
+        });
+        settingsMenu.add(serialSetting);
+
+        mainMenuBar.add(settingsMenu);
+
+        machine.setText("Machine");
+
+        control.setText("Control");
+        control.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                controlActionPerformed(evt);
+            }
+        });
+        machine.add(control);
+
+        macros.setText("Macros");
+        machine.add(macros);
+
+        mainMenuBar.add(machine);
 
         setJMenuBar(mainMenuBar);
 
@@ -1762,6 +1790,14 @@ implements KeyListener, ControllerListener, MainWindowAPI {
      ssd.setVisible(true);
     }//GEN-LAST:event_serialSettingActionPerformed
 
+    private void controlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_controlActionPerformed
+     mcd.setVisible(true);
+    }//GEN-LAST:event_controlActionPerformed
+
+    private void arrowMovementEnabledActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arrowMovementEnabledActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_arrowMovementEnabledActionPerformed
+
     private void executeCustomGcode(String str)
     {
         str = str.replaceAll("(\\r\\n|\\n\\r|\\r|\\n)", "");
@@ -1910,6 +1946,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
         
     private void initProgram() {
         ssd.setVisible(false);
+        mcd.setVisible(false);
         this.setLocalLabels();
         this.checkScrollWindow();
         this.setTitle(Localization.getString("title") + " (" 
@@ -2106,8 +2143,8 @@ implements KeyListener, ControllerListener, MainWindowAPI {
                 break;
             case COMM_DISCONNECTED:
                 this.updateConnectionControls(false);
-                this.updateManualControls(false);
-                this.updateWorkflowControls(false);
+                mcd.updateManualControls(false);
+                mcd.updateWorkflowControls(false);
                 this.updateCustomGcodeControls(false);
                 this.updateFileControls(false);
                 this.updateControlsStopSending();
@@ -2115,8 +2152,8 @@ implements KeyListener, ControllerListener, MainWindowAPI {
                 break;
             case COMM_IDLE:
                 this.updateConnectionControls(true);
-                this.updateManualControls(true);
-                this.updateWorkflowControls(true);
+                mcd.updateManualControls(true);
+                mcd.updateWorkflowControls(true);
                 this.updateCustomGcodeControls(true);
                 this.updateControlsStopSending();
                 break;
@@ -2131,10 +2168,10 @@ implements KeyListener, ControllerListener, MainWindowAPI {
                 this.pauseButton.setText(Localization.getString("mainWindow.ui.pauseButton"));
 
                 // Workflow tab
-                this.updateWorkflowControls(false);
+                mcd.updateWorkflowControls(false);
                 this.updateCustomGcodeControls(false);
                 // Jogging commands
-                this.updateManualControls(false);
+                mcd.updateManualControls(false);
         
                 break;
             case COMM_SENDING_PAUSED:
@@ -2184,34 +2221,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
         this.cancelButton.setEnabled(false);
     }
     
-    /**
-     * Enable/disable jogging controls.
-     */
-    private void updateManualControls(boolean enabled) {
-        this.arrowMovementEnabled.setEnabled(enabled);
 
-        this.xMinusButton.setEnabled(enabled);
-        this.xPlusButton.setEnabled(enabled);
-        this.yMinusButton.setEnabled(enabled);
-        this.yPlusButton.setEnabled(enabled);
-        this.zMinusButton.setEnabled(enabled);
-        this.zPlusButton.setEnabled(enabled);
-        this.stepSizeLabel.setEnabled(enabled);
-        this.stepSizeSpinner.setEnabled(enabled);
-    }
-    
-    private void updateWorkflowControls(boolean enabled) {
-        this.resetCoordinatesButton.setEnabled(enabled);
-        this.resetXButton.setEnabled(enabled);
-        this.resetYButton.setEnabled(enabled);
-        this.resetZButton.setEnabled(enabled);
-        this.returnToZeroButton.setEnabled(enabled);
-        this.performHomingCycleButton.setEnabled(enabled);
-        this.softResetMachineControl.setEnabled(enabled);
-        this.killAlarmLock.setEnabled(enabled);
-        this.toggleCheckMode.setEnabled(enabled);
-        this.requestStateInformation.setEnabled(enabled);
-    }
     
     private void updateCustomGcodeControls(boolean enabled) {
         this.customGcodeButton1.setEnabled(enabled);    
@@ -2599,7 +2609,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
     private int commandNum = -1;
     private List<String> manualCommandHistory;
     
-    private AbstractController controller;
+    public AbstractController controller;
     
     private int sentRows = 0;
     private long jobEstimate = 0L;
@@ -2608,6 +2618,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
     // Other windows
     VisualizerWindow vw = null;
     SerialSettingsDialog ssd= new SerialSettingsDialog(this,true,this);
+    MachineControlDialog mcd= new MachineControlDialog(this,true,this);
     // Duration timer
     private Timer timer;
 
@@ -2636,6 +2647,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
     private javax.swing.JTextField commandTextField;
     private javax.swing.JPanel commandsPanel;
     private javax.swing.JTextArea consoleTextArea;
+    private javax.swing.JMenuItem control;
     private javax.swing.JTabbedPane controlContextTabbedPane;
     private javax.swing.JButton customGcodeButton1;
     private javax.swing.JButton customGcodeButton2;
@@ -2649,6 +2661,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
     private javax.swing.JTextField customGcodeText5;
     private javax.swing.JLabel durationLabel;
     private javax.swing.JLabel durationValueLabel;
+    private javax.swing.JMenu file;
     private javax.swing.JLabel fileLabel;
     private javax.swing.JPanel fileModePanel;
     private javax.swing.JPanel fileRunPanel;
@@ -2669,6 +2682,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
     private javax.swing.JLabel latestCommentLabel;
     private javax.swing.JLabel latestCommentValueLabel;
     private javax.swing.ButtonGroup lineBreakGroup;
+    private javax.swing.JMenu machine;
     private javax.swing.JPanel machineControlPanel;
     private javax.swing.JLabel machinePosition;
     private javax.swing.JLabel machinePositionXLabel;
@@ -2679,6 +2693,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
     private javax.swing.JLabel machinePositionZValueLabel;
     private javax.swing.JLabel macroInstructions;
     private javax.swing.JPanel macroPanel;
+    private javax.swing.JMenuItem macros;
     private javax.swing.JMenuBar mainMenuBar;
     private javax.swing.JPanel movementButtonPanel;
     private javax.swing.JButton pauseButton;
