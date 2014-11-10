@@ -445,9 +445,46 @@ public void updateWorkflowControls(boolean enabled) {
         this.toggleCheckMode.setEnabled(enabled);
         this.requestStateInformation.setEnabled(enabled);
     }
+public static void setStepSize(double val){
+    stepSizeSpinner.setValue(val);
+}
+public String getStepSize(){
+    return this.stepSizeSpinner.getValue().toString();
+}
+public boolean movementEnabled(){
+    return arrowMovementEnabled.isSelected();
+}
+public static void setMovementEnabled(boolean movement){
+    arrowMovementEnabled.setSelected(movement);
+}
+
+public boolean xPlusEnabled(){
+    return xPlusButton.isEnabled();
+}
+public void doXPlus(){
+    xPlusButtonActionPerformed(null);
+}
+public void doXMinus(){
+    xMinusButtonActionPerformed(null);
+}
+public void doYPlus(){
+    yPlusButtonActionPerformed(null);
+}
+public void doYMinus(){
+    yMinusButtonActionPerformed(null);
+}
+public void doZPlus(){
+    zPlusButtonActionPerformed(null);
+}
+public void doZMinus(){
+    zMinusButtonActionPerformed(null);
+}
+public void resetCoordinates(){
+    resetCoordinatesButtonActionPerformed(null);
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox arrowMovementEnabled;
+    private static javax.swing.JCheckBox arrowMovementEnabled;
     private javax.swing.JButton helpButtonMachineControl;
     private javax.swing.JButton killAlarmLock;
     private javax.swing.JButton performHomingCycleButton;
@@ -459,7 +496,7 @@ public void updateWorkflowControls(boolean enabled) {
     private javax.swing.JButton returnToZeroButton;
     private javax.swing.JButton softResetMachineControl;
     private javax.swing.JLabel stepSizeLabel;
-    private javax.swing.JSpinner stepSizeSpinner;
+    private static javax.swing.JSpinner stepSizeSpinner;
     private javax.swing.JButton toggleCheckMode;
     private javax.swing.JButton xMinusButton;
     private javax.swing.JButton xPlusButton;
