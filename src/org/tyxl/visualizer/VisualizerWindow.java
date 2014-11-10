@@ -26,20 +26,26 @@
 package org.tyxl.visualizer;
 
 import com.jogamp.opengl.util.FPSAnimator;
+import org.tyxl.i18n.Localization;
 import org.tyxl.listeners.ControllerListener;
 import org.tyxl.types.GcodeCommand;
-import javax.swing.JPanel;
+import java.awt.Dimension;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import javax.swing.JFrame;
 import javax.vecmath.Point3d;
 
 /**
  *
  * @author wwinder
  */
-public class VisualizerWindow extends JPanel
-implements ControllerListener {
+public class VisualizerWindow extends javax.swing.JFrame 
+implements ControllerListener, WindowListener {
 
-  //  private static final int CANVAS_WIDTH = 640;  // width of the drawable
-  //  private static final int CANVAS_HEIGHT = 480; // height of the drawable
+    private static String TITLE = Localization.getString("visualizer.title");  // window's title
+    private static final int CANVAS_WIDTH = 640;  // width of the drawable
+    private static final int CANVAS_HEIGHT = 480; // height of the drawable
     private static final int FPS = 20; // animator's target frames per second
     
     // OpenGL Control
@@ -55,13 +61,29 @@ implements ControllerListener {
     /**
      * Creates new form Visualizer
      */
-  
+     
     public VisualizerWindow() {
+
+        this.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
+        this.setLocation(0, 0);
         // Create the OpenGL rendering canvas
         this.canvas = new VisualizerCanvas();
+        canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
+        canvas.setLocation(0,0);
+
+        // Create a animator that drives canvas' display() at the specified FPS.
         this.animator = new FPSAnimator(canvas, FPS, true);
-        canvas.setBounds(20, 20, 500, 500);
-        add(canvas);  
+
+        // Create the top-level container
+        final JFrame frame = this; // Swing's JFrame or AWT's Frame
+        frame.getContentPane().add(canvas);
+        
+        // Manage pausing and resuming the animator when it doesn't need to run.
+        frame.addWindowListener(this);
+        
+        frame.setTitle(TITLE);
+        frame.pack();
+        frame.setVisible(true);
         animator.start(); // start the animation loop
     }                                
 
@@ -136,5 +158,49 @@ implements ControllerListener {
     public void postProcessData(int numRows) {
         // Visualizer doesn't care.
     }
+    
+    // Window Listener Events.
 
+    @Override
+    public void windowClosing(WindowEvent e) {
+        // Use a dedicate thread to run the stop() to ensure that the
+        // animator stops before program exits.
+        new Thread() {
+            @Override
+            public void run() {
+                if (animator.isStarted()){ animator.pause(); }
+            }
+        }.start();
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+        if (animator.isPaused()) { animator.resume(); }
+    }
+        
+
+    @Override
+    public void windowOpened(WindowEvent we) {
+        //throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void windowClosed(WindowEvent we) {
+        //throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void windowIconified(WindowEvent we) {
+        //throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent we) {
+        //throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent we) {
+        //throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
