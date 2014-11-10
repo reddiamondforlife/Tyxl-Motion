@@ -106,9 +106,6 @@ implements KeyListener, ControllerListener, MainWindowAPI {
         jScrollPane1 = new javax.swing.JScrollPane();
         commandTable = new org.tyxl.uielements.GcodeTable();
         controlContextTabbedPane = new javax.swing.JTabbedPane();
-        commandsPanel = new javax.swing.JPanel();
-        commandLabel = new javax.swing.JLabel();
-        commandTextField = new javax.swing.JTextField();
         fileModePanel = new javax.swing.JPanel();
         sendButton = new javax.swing.JButton();
         pauseButton = new javax.swing.JButton();
@@ -129,6 +126,9 @@ implements KeyListener, ControllerListener, MainWindowAPI {
         remainingRowsValueLabel = new javax.swing.JLabel();
         sentRowsLabel = new javax.swing.JLabel();
         rowsLabel = new javax.swing.JLabel();
+        commandsPanel = new javax.swing.JPanel();
+        commandLabel = new javax.swing.JLabel();
+        commandTextField = new javax.swing.JTextField();
         machineControlPanel = new javax.swing.JPanel();
         resetCoordinatesButton = new javax.swing.JButton();
         returnToZeroButton = new javax.swing.JButton();
@@ -234,40 +234,6 @@ implements KeyListener, ControllerListener, MainWindowAPI {
 
         controlContextTabbedPane.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         controlContextTabbedPane.setMinimumSize(new java.awt.Dimension(395, 175));
-
-        commandLabel.setText("Command");
-
-        commandTextField.setEnabled(false);
-        commandTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                commandTextFieldActionPerformed(evt);
-            }
-        });
-
-        org.jdesktop.layout.GroupLayout commandsPanelLayout = new org.jdesktop.layout.GroupLayout(commandsPanel);
-        commandsPanel.setLayout(commandsPanelLayout);
-        commandsPanelLayout.setHorizontalGroup(
-            commandsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(commandsPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(commandsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(commandTextField)
-                    .add(commandsPanelLayout.createSequentialGroup()
-                        .add(commandLabel)
-                        .add(0, 348, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        commandsPanelLayout.setVerticalGroup(
-            commandsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(commandsPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(commandLabel)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(commandTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(143, Short.MAX_VALUE))
-        );
-
-        controlContextTabbedPane.addTab("Commands", commandsPanel);
 
         fileModePanel.setMinimumSize(new java.awt.Dimension(389, 150));
 
@@ -467,6 +433,40 @@ implements KeyListener, ControllerListener, MainWindowAPI {
         );
 
         controlContextTabbedPane.addTab("File Mode", fileModePanel);
+
+        commandLabel.setText("Command");
+
+        commandTextField.setEnabled(false);
+        commandTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                commandTextFieldActionPerformed(evt);
+            }
+        });
+
+        org.jdesktop.layout.GroupLayout commandsPanelLayout = new org.jdesktop.layout.GroupLayout(commandsPanel);
+        commandsPanel.setLayout(commandsPanelLayout);
+        commandsPanelLayout.setHorizontalGroup(
+            commandsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(commandsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(commandsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(commandTextField)
+                    .add(commandsPanelLayout.createSequentialGroup()
+                        .add(commandLabel)
+                        .add(0, 348, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        commandsPanelLayout.setVerticalGroup(
+            commandsPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(commandsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(commandLabel)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(commandTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(143, Short.MAX_VALUE))
+        );
+
+        controlContextTabbedPane.addTab("Commands", commandsPanel);
 
         resetCoordinatesButton.setText("Reset Zero");
         resetCoordinatesButton.setEnabled(false);
@@ -1128,16 +1128,13 @@ implements KeyListener, ControllerListener, MainWindowAPI {
                     .add(visualizePanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(layout.createSequentialGroup()
-                                .add(controlContextTabbedPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 283, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(scrollWindowCheckBox)
-                                    .add(showVerboseOutputCheckBox)))
-                            .add(layout.createSequentialGroup()
-                                .add(150, 150, 150)
-                                .add(statusPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                            .add(controlContextTabbedPane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 283, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(statusPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(scrollWindowCheckBox)
+                            .add(showVerboseOutputCheckBox))
+                        .add(8, 8, 8)
                         .add(bottomTabbedPane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -2258,8 +2255,8 @@ implements KeyListener, ControllerListener, MainWindowAPI {
         this.browseButton.setText(Localization.getString("mainWindow.swing.browseButton"));
         this.cancelButton.setText(Localization.getString("mainWindow.swing.cancelButton"));
         this.commandLabel.setText(Localization.getString("mainWindow.swing.commandLabel"));
-        this.controlContextTabbedPane.setTitleAt(0, Localization.getString("mainWindow.swing.controlContextTabbedPane.commands"));
-        this.controlContextTabbedPane.setTitleAt(1, Localization.getString("mainWindow.swing.controlContextTabbedPane.fileMode"));
+        this.controlContextTabbedPane.setTitleAt(0, Localization.getString("mainWindow.swing.controlContextTabbedPane.fileMode"));
+        this.controlContextTabbedPane.setTitleAt(1, Localization.getString("mainWindow.swing.controlContextTabbedPane.commands"));
         this.controlContextTabbedPane.setTitleAt(2, Localization.getString("mainWindow.swing.controlContextTabbedPane.machineControl"));
         this.controlContextTabbedPane.setTitleAt(3, Localization.getString("mainWindow.swing.controlContextTabbedPane.macros"));
         this.durationLabel.setText(Localization.getString("mainWindow.swing.durationLabel"));
