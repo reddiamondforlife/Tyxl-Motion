@@ -5,17 +5,21 @@
  */
 package org.tyxl.uielements;
 
+import org.tyxl.controller.MainWindow;
+import org.tyxl.uielements.WizardPlaceDialog;
+
 /**
  *
  * @author Daniel
  */
 public class WizardClampDialog extends javax.swing.JDialog {
-
+MainWindow mw;
     /**
      * Creates new form WizardClampDialog
      */
-    public WizardClampDialog(java.awt.Frame parent, boolean modal) {
+    public WizardClampDialog(java.awt.Frame parent, boolean modal, MainWindow mw) {
         super(parent, modal);
+        this.mw=mw;
         initComponents();
     }
 
@@ -44,6 +48,11 @@ public class WizardClampDialog extends javax.swing.JDialog {
         jLabel3.setText("mm");
 
         NextButton.setText("Next");
+        NextButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NextButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -83,47 +92,23 @@ public class WizardClampDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(WizardClampDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(WizardClampDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(WizardClampDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(WizardClampDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                WizardClampDialog dialog = new WizardClampDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
+    private void NextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NextButtonActionPerformed
+        float Thickness=0; 
+        try
+    {
+       Thickness= Float.parseFloat(mmField.getText());
     }
+    catch (NumberFormatException nfe)
+    {
+      System.out.println("NumberFormatException: " + nfe.getMessage());
+    }
+        mw.settings.setThickness(Thickness);
+        WizardPlaceDialog wpd=new WizardPlaceDialog(mw,true,mw);
+        this.setVisible(false);
+        wpd.setVisible(true);
+    }//GEN-LAST:event_NextButtonActionPerformed
+
+ 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton NextButton;

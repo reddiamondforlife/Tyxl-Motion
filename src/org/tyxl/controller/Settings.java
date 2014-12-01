@@ -26,7 +26,7 @@ public class Settings {
     private boolean convertArcsToLines = false;
     private double smallArcThreshold = 2.0;
     private double smallArcSegmentLength = 1.3;
-    
+    private float thickness=0;
     private String customGcode1 = "G91 X0 Y0;";
     private String customGcode2 = "";
     private String customGcode3 = "";
@@ -248,5 +248,11 @@ public class Settings {
         public void setCustomGcode5(String gcode) {
 		this.customGcode5 = gcode;
 	}
+        public void setThickness(float thickness){
+            this.thickness=thickness;
+        }
+        public float getThickness(){
+            return thickness;
+        }
 
 }

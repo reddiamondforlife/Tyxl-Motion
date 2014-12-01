@@ -71,7 +71,7 @@ import org.tyxl.uielements.MachineControlDialog;
 import org.tyxl.uielements.MachineMacrosDialog;
 import org.tyxl.uielements.SerialSettingsDialog;
 import org.tyxl.uielements.SettingsSettingsDialog;
-
+import org.tyxl.uielements.WizardBrowseDialog;
 /**
  *
  * @author wwinder
@@ -149,6 +149,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
         mainMenuBar = new javax.swing.JMenuBar();
         file = new javax.swing.JMenu();
         browse = new javax.swing.JMenuItem();
+        Wizard = new javax.swing.JMenuItem();
         settingsMenu = new javax.swing.JMenu();
         grblConnectionSettingsMenuItem = new javax.swing.JMenuItem();
         firmwareSettingsMenu = new javax.swing.JMenu();
@@ -477,6 +478,14 @@ implements KeyListener, ControllerListener, MainWindowAPI {
             }
         });
         file.add(browse);
+
+        Wizard.setText("Wizard");
+        Wizard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                WizardActionPerformed(evt);
+            }
+        });
+        file.add(Wizard);
 
         mainMenuBar.add(file);
 
@@ -1106,6 +1115,10 @@ implements KeyListener, ControllerListener, MainWindowAPI {
       sssd.setVisible(true);
     }//GEN-LAST:event_settingItemActionPerformed
 
+    private void WizardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WizardActionPerformed
+     wbd.setVisible(true);
+    }//GEN-LAST:event_WizardActionPerformed
+
     public void executeCustomGcode(String str)
     {
         str = str.replaceAll("(\\r\\n|\\n\\r|\\r|\\n)", "");
@@ -1595,7 +1608,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
     }
     
 
-    private void loadFile(java.io.File file) throws FileNotFoundException, IOException {
+    public void loadFile(java.io.File file) throws FileNotFoundException, IOException {
         this.jobEstimate = 0L;
         this.gcodeFile = file;
         FileReader fr = new FileReader(file);
@@ -1891,8 +1904,8 @@ implements KeyListener, ControllerListener, MainWindowAPI {
     }
     
     // My Variables
-    private javax.swing.JFileChooser fileChooser;
-    private java.io.File gcodeFile;
+    public javax.swing.JFileChooser fileChooser;
+    public java.io.File gcodeFile;
     private List<String> processedCommandLines;
 
     // TODO: Move command history box into a self contained object.
@@ -1912,6 +1925,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
     MachineControlDialog mcd= new MachineControlDialog(this,true,this);
     MachineMacrosDialog mmd= new MachineMacrosDialog(this,true,this);
     SettingsSettingsDialog sssd= new SettingsSettingsDialog(this,true,this);
+    WizardBrowseDialog wbd=new WizardBrowseDialog(this,true,this);
     // Duration timer
     private Timer timer;
 
@@ -1929,6 +1943,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
     // Generated variables.
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu RemoteMenu;
+    private javax.swing.JMenuItem Wizard;
     private javax.swing.JLabel activeStateLabel;
     private javax.swing.JLabel activeStateValueLabel;
     private javax.swing.JTabbedPane bottomTabbedPane;
@@ -1944,7 +1959,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
     private javax.swing.JMenu file;
     private javax.swing.JLabel fileLabel;
     private javax.swing.JPanel fileRunPanel;
-    private javax.swing.JTextField fileTextField;
+    public javax.swing.JTextField fileTextField;
     private javax.swing.JMenu firmwareSettingsMenu;
     private javax.swing.JMenuItem grblConnectionSettingsMenuItem;
     private javax.swing.JMenuItem grblFirmwareSettingsMenuItem;
@@ -1973,7 +1988,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
     private javax.swing.JLabel remainingTimeLabel;
     private javax.swing.JLabel remainingTimeValueLabel;
     private javax.swing.JLabel rowsLabel;
-    private javax.swing.JLabel rowsValueLabel;
+    public javax.swing.JLabel rowsValueLabel;
     private javax.swing.JButton saveButton;
     private javax.swing.JButton sendButton;
     private javax.swing.JLabel sentRowsLabel;
