@@ -1922,7 +1922,7 @@ implements KeyListener, ControllerListener, MainWindowAPI {
     // Other windows
     VisualizerWindow vw = null;
     SerialSettingsDialog ssd= new SerialSettingsDialog(this,true,this);
-    MachineControlDialog mcd= new MachineControlDialog(this,true,this);
+   public MachineControlDialog mcd= new MachineControlDialog(this,true,this);
     MachineMacrosDialog mmd= new MachineMacrosDialog(this,true,this);
     SettingsSettingsDialog sssd= new SettingsSettingsDialog(this,true,this);
     WizardBrowseDialog wbd=new WizardBrowseDialog(this,true,this);

@@ -5,6 +5,7 @@
  */
 package org.tyxl.uielements;
 
+import javax.swing.JOptionPane;
 import org.tyxl.controller.MainWindow;
 import org.tyxl.uielements.WizardPlaceDialog;
 
@@ -100,7 +101,8 @@ MainWindow mw;
     }
     catch (NumberFormatException nfe)
     {
-      System.out.println("NumberFormatException: " + nfe.getMessage());
+        String st="Thickness is not a number, material will be set to 0mm";
+      JOptionPane.showMessageDialog(null,st);
     }
         mw.settings.setThickness(Thickness);
         WizardPlaceDialog wpd=new WizardPlaceDialog(mw,true,mw);

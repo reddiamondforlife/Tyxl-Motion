@@ -5,6 +5,7 @@
  */
 package org.tyxl.uielements;
 
+import javax.swing.JOptionPane;
 import org.tyxl.controller.MainWindow;
 
 /**
@@ -20,6 +21,7 @@ MainWindow mw;
         super(parent, modal);
         this.mw=mw;
         initComponents();
+       stepText.setText(mw.mcd.getStepSize());
     }
 
     /**
@@ -32,26 +34,127 @@ MainWindow mw;
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        jogging = new javax.swing.JPanel();
+        Ymin = new javax.swing.JButton();
+        Yplus1 = new javax.swing.JButton();
+        Xplus = new javax.swing.JButton();
+        Xmin = new javax.swing.JButton();
+        Zmin = new javax.swing.JButton();
+        Zplus = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        stepText = new javax.swing.JTextField();
         NextButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(400, 300));
-        setPreferredSize(new java.awt.Dimension(400, 300));
 
         jLabel1.setText("Please place the spindle on the center point or use the jogging menu");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Jogging menu"));
+        jogging.setBorder(javax.swing.BorderFactory.createTitledBorder("Jogging menu"));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 179, Short.MAX_VALUE)
+        Ymin.setText("Y-");
+        Ymin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                YminActionPerformed(evt);
+            }
+        });
+
+        Yplus1.setText("Y+");
+        Yplus1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Yplus1ActionPerformed(evt);
+            }
+        });
+
+        Xplus.setText("X+");
+        Xplus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                XplusActionPerformed(evt);
+            }
+        });
+
+        Xmin.setText("X-");
+        Xmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                XminActionPerformed(evt);
+            }
+        });
+
+        Zmin.setText("Z-");
+        Zmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ZminActionPerformed(evt);
+            }
+        });
+
+        Zplus.setText("Z+");
+        Zplus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ZplusActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Step Size");
+
+        stepText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stepTextActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout joggingLayout = new javax.swing.GroupLayout(jogging);
+        jogging.setLayout(joggingLayout);
+        joggingLayout.setHorizontalGroup(
+            joggingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(joggingLayout.createSequentialGroup()
+                .addGroup(joggingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(joggingLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(Xmin, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Ymin, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Xplus, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(joggingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Zmin, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Zplus, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(joggingLayout.createSequentialGroup()
+                        .addGap(81, 81, 81)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(stepText, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(23, Short.MAX_VALUE))
+            .addGroup(joggingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(joggingLayout.createSequentialGroup()
+                    .addGap(64, 64, 64)
+                    .addComponent(Yplus1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(146, Short.MAX_VALUE)))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 163, Short.MAX_VALUE)
+        joggingLayout.setVerticalGroup(
+            joggingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, joggingLayout.createSequentialGroup()
+                .addGap(0, 43, Short.MAX_VALUE)
+                .addComponent(Zplus, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(joggingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Ymin, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Zmin, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(47, 47, 47))
+            .addGroup(joggingLayout.createSequentialGroup()
+                .addGroup(joggingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(stepText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(49, 49, 49)
+                .addGroup(joggingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Xplus, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Xmin, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(joggingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(joggingLayout.createSequentialGroup()
+                    .addGap(41, 41, 41)
+                    .addComponent(Yplus1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(106, Short.MAX_VALUE)))
         );
 
         NextButton.setText("Next");
@@ -70,16 +173,15 @@ MainWindow mw;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addContainerGap(62, Short.MAX_VALUE))
+                        .addContainerGap(334, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(34, 34, 34))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(NextButton)
-                                .addContainerGap())))))
+                        .addGap(0, 597, Short.MAX_VALUE)
+                        .addComponent(NextButton)
+                        .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jogging, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -87,8 +189,8 @@ MainWindow mw;
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addComponent(jogging, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(NextButton)
                 .addContainerGap())
         );
@@ -102,11 +204,74 @@ MainWindow mw;
         wfd.setVisible(true);
     }//GEN-LAST:event_NextButtonActionPerformed
 
-  
+    private void Yplus1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Yplus1ActionPerformed
+    this.setStep();
+        mw.mcd.doYPlus();
+    }//GEN-LAST:event_Yplus1ActionPerformed
+
+    private void YminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_YminActionPerformed
+        this.setStep();
+        mw.mcd.doYMinus();
+    }//GEN-LAST:event_YminActionPerformed
+
+    private void XminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_XminActionPerformed
+       this.setStep();
+        mw.mcd.doXMinus();
+    }//GEN-LAST:event_XminActionPerformed
+
+    private void XplusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_XplusActionPerformed
+       this.setStep();
+        mw.mcd.doXPlus();
+    }//GEN-LAST:event_XplusActionPerformed
+
+    private void ZplusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ZplusActionPerformed
+      this.setStep();
+        mw.mcd.doZPlus();
+    }//GEN-LAST:event_ZplusActionPerformed
+
+    private void ZminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ZminActionPerformed
+     this.setStep();
+        mw.mcd.doZMinus();
+      
+    }//GEN-LAST:event_ZminActionPerformed
+public void setStep(){
+   if( isNumeric(stepText.getText())){
+    mw.mcd.setStepSize(Double.parseDouble(stepText.getText()));
+   }
+   else{
+       String st="Stepsize is not a number";
+JOptionPane.showMessageDialog(null,st);
+stepText.setText("0.1");
+   }
+}
+    private void stepTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stepTextActionPerformed
+     
+    }//GEN-LAST:event_stepTextActionPerformed
+
+  public static boolean isNumeric(String str)  
+{  
+  try  
+  {  
+    double d = Double.parseDouble(str);  
+  }  
+  catch(NumberFormatException nfe)  
+  {  
+    return false;  
+  }  
+  return true;  
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton NextButton;
+    private javax.swing.JButton Xmin;
+    private javax.swing.JButton Xplus;
+    private javax.swing.JButton Ymin;
+    private javax.swing.JButton Yplus1;
+    private javax.swing.JButton Zmin;
+    private javax.swing.JButton Zplus;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jogging;
+    private javax.swing.JTextField stepText;
     // End of variables declaration//GEN-END:variables
 }

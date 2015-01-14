@@ -17,13 +17,15 @@ import org.tyxl.i18n.Localization;
  * @author Daniel
  */
 public class SerialSettingsDialog extends javax.swing.JDialog {
-MainWindow mw;
+
+    MainWindow mw;
+
     /**
      * Creates new form SerialSettingsDialog
      */
     public SerialSettingsDialog(java.awt.Frame parent, boolean modal, MainWindow mw) {
         super(parent, modal);
-        this.mw=mw;
+        this.mw = mw;
         initComponents();
         initProgram();
     }
@@ -135,21 +137,23 @@ MainWindow mw;
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void initProgram(){
+    private void initProgram() {
         loadPortSelector();
         loadFirmwareSelector();
     }
+
     private void loadPortSelector() {
         commPortComboBox.removeAllItems();
-        
+
         List<CommPortIdentifier> portList = CommUtils.getSerialPortList();
 
         if (portList.size() < 1) {
-            MainWindow.displayErrorDialog(Localization.getString("mainWindow.error.noSerialPort"));
+            MainWindow.displayErrorDialog("No Serial communication was found, please connect your TYXL and restart the program.");
+            System.exit(1);
         } else {
-           java.util.Iterator<CommPortIdentifier> portIter = portList.iterator();
+            java.util.Iterator<CommPortIdentifier> portIter = portList.iterator();
 
-            while ( portIter.hasNext() ) {
+            while (portIter.hasNext()) {
                 CommPortIdentifier portIdentifier = portIter.next();
                 commPortComboBox.addItem(portIdentifier.getName());
             }
@@ -157,16 +161,16 @@ MainWindow mw;
             commPortComboBox.setSelectedIndex(0);
         }
     }
-    
+
     private void loadFirmwareSelector() {
         firmwareComboBox.removeAllItems();
         List<String> firmwareList = FirmwareUtils.getFirmwareList();
-        
+
         if (firmwareList.size() < 1) {
             MainWindow.displayErrorDialog(Localization.getString("mainWindow.error.noFirmware"));
         } else {
             java.util.Iterator<String> iter = firmwareList.iterator();
-            while ( iter.hasNext() ) {
+            while (iter.hasNext()) {
                 firmwareComboBox.addItem(iter.next());
             }
         }
@@ -177,24 +181,29 @@ MainWindow mw;
         mw.openSerial();
         this.setVisible(false);
     }//GEN-LAST:event_saveButtonActionPerformed
-public static String getFirmware(){
-    return firmwareComboBox.getSelectedItem().toString();
-}
-public static String getComPort(){
-   return commPortComboBox.getSelectedItem().toString();
-}
-public static int getPortRate(){
-    return Integer.parseInt(baudrateSelectionComboBox.getSelectedItem().toString());
-}
-public static void setComPort(String comPort){
-    commPortComboBox.setSelectedItem(comPort);
-}
-public static void setPortRate(String portRate){
-    baudrateSelectionComboBox.setSelectedItem(portRate);
-}
-public static void setFirmware(String firmware){
-    firmwareComboBox.setSelectedItem(firmware);
-}
+    public static String getFirmware() {
+        return firmwareComboBox.getSelectedItem().toString();
+    }
+
+    public static String getComPort() {
+        return commPortComboBox.getSelectedItem().toString();
+    }
+
+    public static int getPortRate() {
+        return Integer.parseInt(baudrateSelectionComboBox.getSelectedItem().toString());
+    }
+
+    public static void setComPort(String comPort) {
+        commPortComboBox.setSelectedItem(comPort);
+    }
+
+    public static void setPortRate(String portRate) {
+        baudrateSelectionComboBox.setSelectedItem(portRate);
+    }
+
+    public static void setFirmware(String firmware) {
+        firmwareComboBox.setSelectedItem(firmware);
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
