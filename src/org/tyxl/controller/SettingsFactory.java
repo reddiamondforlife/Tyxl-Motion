@@ -66,7 +66,7 @@ class SettingsFactory {
                 out.setPort(properties.getProperty("port", ""));
                 out.setPortRate(properties.getProperty("port.rate", "9600"));
                 out.setManualModeEnabled(Boolean.valueOf(properties.getProperty("manualMode.enabled", "false")));
-                out.setManualModeStepSize(Double.valueOf(properties.getProperty("manualMode.stepsize", "1")));
+               // out.setManualModeStepSize(Double.valueOf(properties.getProperty("manualMode.stepsize", "1")));
                 out.setScrollWindowEnabled(Boolean.valueOf(properties.getProperty("scrollWindow.enabled", "true")));
                 out.setVerboseOutputEnabled(Boolean.valueOf(properties.getProperty("verboseOutput.enabled", "false")));
                 out.setOverrideSpeedSelected(Boolean.valueOf(properties.getProperty("overrideSpeed.enabled", "false")));

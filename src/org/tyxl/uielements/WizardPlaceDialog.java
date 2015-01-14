@@ -21,7 +21,7 @@ MainWindow mw;
         super(parent, modal);
         this.mw=mw;
         initComponents();
-       stepText.setText(mw.mcd.getStepSize());
+       stepSpinner.setValue(Double.parseDouble(mw.mcd.getStepSize()));
     }
 
     /**
@@ -42,7 +42,7 @@ MainWindow mw;
         Zmin = new javax.swing.JButton();
         Zplus = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        stepText = new javax.swing.JTextField();
+        stepSpinner = new javax.swing.JSpinner();
         NextButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -96,9 +96,10 @@ MainWindow mw;
 
         jLabel2.setText("Step Size");
 
-        stepText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                stepTextActionPerformed(evt);
+        stepSpinner.setModel(new javax.swing.SpinnerNumberModel(1.0d, 0.0d, 100.0d, 0.1d));
+        stepSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                stepSpinnerStateChanged(evt);
             }
         });
 
@@ -122,8 +123,8 @@ MainWindow mw;
                     .addGroup(joggingLayout.createSequentialGroup()
                         .addGap(81, 81, 81)
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(stepText, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(stepSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(23, Short.MAX_VALUE))
             .addGroup(joggingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(joggingLayout.createSequentialGroup()
@@ -144,7 +145,7 @@ MainWindow mw;
             .addGroup(joggingLayout.createSequentialGroup()
                 .addGroup(joggingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(stepText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(stepSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(49, 49, 49)
                 .addGroup(joggingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Xplus, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -173,11 +174,11 @@ MainWindow mw;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addContainerGap(334, Short.MAX_VALUE))
+                        .addGap(0, 324, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 597, Short.MAX_VALUE)
-                        .addComponent(NextButton)
-                        .addContainerGap())))
+                        .addComponent(NextButton)))
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jogging, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -205,48 +206,39 @@ MainWindow mw;
     }//GEN-LAST:event_NextButtonActionPerformed
 
     private void Yplus1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Yplus1ActionPerformed
-    this.setStep();
+    
         mw.mcd.doYPlus();
     }//GEN-LAST:event_Yplus1ActionPerformed
 
     private void YminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_YminActionPerformed
-        this.setStep();
+        
         mw.mcd.doYMinus();
     }//GEN-LAST:event_YminActionPerformed
 
     private void XminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_XminActionPerformed
-       this.setStep();
+       
         mw.mcd.doXMinus();
     }//GEN-LAST:event_XminActionPerformed
 
     private void XplusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_XplusActionPerformed
-       this.setStep();
+      
         mw.mcd.doXPlus();
     }//GEN-LAST:event_XplusActionPerformed
 
     private void ZplusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ZplusActionPerformed
-      this.setStep();
+      
         mw.mcd.doZPlus();
     }//GEN-LAST:event_ZplusActionPerformed
 
     private void ZminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ZminActionPerformed
-     this.setStep();
+    
         mw.mcd.doZMinus();
       
     }//GEN-LAST:event_ZminActionPerformed
-public void setStep(){
-   if( isNumeric(stepText.getText())){
-    mw.mcd.setStepSize(Double.parseDouble(stepText.getText()));
-   }
-   else{
-       String st="Stepsize is not a number";
-JOptionPane.showMessageDialog(null,st);
-stepText.setText("0.1");
-   }
-}
-    private void stepTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stepTextActionPerformed
-     
-    }//GEN-LAST:event_stepTextActionPerformed
+
+    private void stepSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_stepSpinnerStateChanged
+        mw.mcd.setStepSize((double)stepSpinner.getValue());
+    }//GEN-LAST:event_stepSpinnerStateChanged
 
   public static boolean isNumeric(String str)  
 {  
@@ -272,6 +264,6 @@ stepText.setText("0.1");
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jogging;
-    private javax.swing.JTextField stepText;
+    private javax.swing.JSpinner stepSpinner;
     // End of variables declaration//GEN-END:variables
 }

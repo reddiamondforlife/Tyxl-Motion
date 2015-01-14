@@ -412,7 +412,7 @@ MainWindow mw;
     }//GEN-LAST:event_resetZButtonresetZCoordinateButtonActionPerformed
 
     private void stepSizeSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_stepSizeSpinnerStateChanged
-
+     mw.stepSpinner.setValue(stepSizeSpinner.getValue());
     }//GEN-LAST:event_stepSizeSpinnerStateChanged
 
     private void yPlusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yPlusButtonActionPerformed

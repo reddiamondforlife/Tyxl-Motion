@@ -8,7 +8,7 @@ public class Settings {
     private String port = "";
     private String portRate = "9600";
     private boolean manualModeEnabled = false;
-    private double manualModeStepSize = 1;
+    //private double manualModeStepSize = 1;
     private boolean scrollWindowEnabled = true;
     private boolean verboseOutputEnabled = false;
     // Sender Settings
@@ -78,13 +78,7 @@ public class Settings {
 		this.manualModeEnabled = manualModeEnabled;
 	}
 
-	public double getManualModeStepSize() {
-		return manualModeStepSize;
-	}
-
-	public void setManualModeStepSize(double manualModeStepSize) {
-		this.manualModeStepSize = manualModeStepSize;
-	}
+	
 
 	public boolean isScrollWindowEnabled() {
 		return scrollWindowEnabled;
