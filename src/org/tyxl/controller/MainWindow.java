@@ -61,6 +61,9 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -1398,8 +1401,15 @@ implements KeyListener, ControllerListener, MainWindowAPI {
         this.checkScrollWindow();
         this.setTitle(Localization.getString("title") + " (" 
                 + Localization.getString("version") + " " + VERSION + ")");
-        Image icon = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB_PRE);
-        this.setIconImage(icon);
+        Image icon;
+        try {
+            icon = ImageIO.read(new File("res/icon.png"));
+            this.setIconImage(icon);
+        } catch (IOException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        
         // starting Remote
           this.remote = new Remote(this);
 	    this.remote.start();
