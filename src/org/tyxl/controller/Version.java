@@ -9,7 +9,7 @@ import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 
 public class Version {
-    private static String VERSION = "1.0.9 TYXL edition [nighty] ";
+    private static String VERSION = "0.9 [BETA] ";
     private static String TIMESTAMP = "";
 
     private static boolean initialized = false;
@@ -26,7 +26,7 @@ public class Version {
     }
     
     private static void initialize() {
-        String timestamp = "";
+        String timestamp = "15/1/2015";
         try {
             Class clazz = Version.class;
             String className = clazz.getSimpleName() + ".class";
